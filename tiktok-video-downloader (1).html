@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIKTOK VIDEO DOWNLOADER</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color: white; min-height: 100vh; }
+    header { background: linear-gradient(90deg, #ff0050, #ff2b5e); padding: 15px; text-align: center; font-size: 18px; font-weight: bold; position: sticky; top: 0; z-index: 100; }
+    .ad-top { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px solid #ff0050; border-radius: 10px; padding: 15px; margin: 10px; text-align: center; }
+    .ad-top h3 { color: #ff0050; font-size: 14px; margin-bottom: 5px; }
+    .ad-top p { font-size: 12px; color: #ccc; }
+    .container { padding: 15px; max-width: 500px; margin: 0 auto; }
+    h2 { text-align: center; margin: 15px 0; font-size: 20px; }
+    .input-box { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
+    input { flex: 1; padding: 12px 15px; border-radius: 25px; border: 2px solid #333; background: #1a1a1a; color: white; font-size: 14px; transition: border-color 0.3s; }
+    input:focus { outline: none; border-color: #ff0050; }
+    .paste-btn { padding: 12px 20px; border: none; border-radius: 25px; background: #ff0050; color: white; font-weight: bold; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
+    .paste-btn:hover { background: #ff2b5e; transform: scale(1.05); }
+    .download-btn { display: none; width: 100%; padding: 15px; border: none; border-radius: 25px; background: linear-gradient(90deg, #25d366, #128c7e); color: white; font-weight: bold; font-size: 16px; cursor: pointer; transition: all 0.3s; margin-top: 10px; }
+    .download-btn:hover { transform: scale(1.02); box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); }
+    .download-btn.show { display: block; animation: fadeIn 0.3s ease; }
+    .social-buttons { display: flex; gap: 10px; margin: 15px 0; justify-content: center; }
+    .social-btn { padding: 12px 20px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+    .youtube-btn { background: #ff0000; color: white; }
+    .youtube-btn:hover { background: #cc0000; transform: scale(1.05); }
+    .whatsapp-btn { background: #25d366; color: white; }
+    .whatsapp-btn:hover { background: #128c7e; transform: scale(1.05); }
+    .pasted-indicator { display: none; color: #25d366; font-size: 12px; margin-top: 5px; text-align: center; }
+    .pasted-indicator.show { display: block; }
+    .loading { display: none; text-align: center; padding: 20px; }
+    .spinner { border: 4px solid #333; border-top: 4px solid #ff0050; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .video-info { display: none; background: #1a1a1a; border-radius: 15px; padding: 15px; margin: 15px 0; border: 1px solid #333; }
+    .video-info.show { display: block; animation: fadeIn 0.3s ease; }
+    .author-info { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #333; }
+    .author-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(45deg, #ff0050, #ff6b00); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; }
+    .author-details h4 { color: #fff; font-size: 16px; margin-bottom: 3px; }
+    .author-details p { color: #888; font-size: 12px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+    .stat-item { background: #252525; padding: 12px; border-radius: 10px; text-align: center; }
+    .stat-icon { font-size: 20px; margin-bottom: 5px; }
+    .stat-value { font-size: 16px; font-weight: bold; color: #fff; }
+    .stat-label { font-size: 10px; color: #888; text-transform: uppercase; }
+    .video-caption { background: #252525; padding: 12px; border-radius: 10px; margin-bottom: 12px; }
+    .video-caption p { font-size: 14px; line-height: 1.5; color: #fff; }
+    .hashtags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hashtag { background: linear-gradient(45deg, #ff0050, #ff6b00); padding: 6px 12px; border-radius: 20px; font-size: 12px; color: #fff; font-weight: 500; }
+    .video-container { display: none; margin: 15px 0; text-align: center; }
+    .video-container.show { display: block; }
+    video { max-width: 100%; max-height: 350px; border-radius: 15px; box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3); }
+    .download-options { display: none; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 15px 0; }
+    .download-options.show { display: flex; animation: fadeIn 0.3s ease; }
+    .download-options button { padding: 15px 25px; font-size: 14px; border: none; border-radius: 25px; color: white; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+    .btn-video { background: #25d366; }
+    .btn-video:hover { transform: scale(1.05); }
+    .btn-hd { background: #ff6b00; }
+    .btn-hd:hover { transform: scale(1.05); }
+    .btn-mp3 { background: #1db954; }
+    .btn-mp3:hover { transform: scale(1.05); }
+    .section { margin-top: 25px; padding: 20px; background: #1a1a1a; border-radius: 15px; }
+    .section h3 { color: #ff0050; margin-bottom: 15px; font-size: 16px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .feature-item { background: #252525; padding: 15px; border-radius: 10px; text-align: center; font-size: 12px; }
+    .feature-item span { font-size: 24px; display: block; margin-bottom: 5px; }
+    .ad-bottom { background: linear-gradient(135deg, #0f3460, #16213e); border: 2px solid #533483; border-radius: 10px; padding: 15px; margin: 15px 0; text-align: center; }
+    .ad-bottom h3 { color: #e94560; font-size: 13px; }
+    .footer { margin-top: 30px; padding: 20px; background: #111; text-align: center; font-size: 12px; color: #888; }
+    .footer a { color: #ff0050; text-decoration: none; display: block; margin: 5px 0; }
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 1000; justify-content: center; align-items: center; }
+    .popup-content { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 3px solid #ff0050; border-radius: 20px; padding: 30px; text-align: center; max-width: 90%; width: 350px; position: relative; }
+    .popup-content h2 { color: #ff0050; margin-bottom: 15px; }
+    .ad-box { background: #0f0f0f; border-radius: 10px; padding: 20px; margin: 15px 0; }
+    .ad-box h3 { color: #ff6b00; font-size: 16px; }
+    .ad-box p { font-size: 12px; color: #aaa; margin: 10px 0; }
+    .countdown { font-size: 48px; color: #ff0050; font-weight: bold; margin: 15px 0; }
+    .close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 0; width: 30px; height: 30px; }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #25d366; color: white; padding: 15px 25px; border-radius: 25px; display: none; z-index: 2000; font-weight: bold; }
+    .music-info { background: #252525; padding: 10px; border-radius: 10px; margin-top: 10px; display: flex; align-items: center; gap: 8px; }
+    .music-info span { font-size: 16px; }
+    .music-info p { font-size: 12px; color: #aaa; }
+    .download-progress { display: none; width: 100%; background: #333; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+    .download-progress.show { display: block; }
+    .progress-bar { width: 0%; height: 20px; background: linear-gradient(90deg, #ff0050, #ff6b00); transition: width 0.3s; text-align: center; line-height: 20px; font-size: 12px; color: white; }
+  </style>
+</head>
+<body>
+  <header>🔥 TIKTOK VIDEO DOWNLOADER</header>
+  <div class="ad-top">
+    <h3>🔥 MIAN X NIAZI</h3>
+    <p>Premium Video Downloading Tools - 100% Free & Fast</p>
+  </div>
+  <div class="container">
+    <h2>Paste TikTok Link</h2>
+    <div class="input-box">
+      <input type="text" id="url" placeholder="https://www.tiktok.com/@username/video/123..." oninput="checkInput()">
+      <button class="paste-btn" onclick="pasteURL()">📋 Paste</button>
+    </div>
+    <div class="pasted-indicator" id="pastedIndicator">✓ Link pasted! Click Download to proceed</div>
+    <button class="download-btn" id="mainDownloadBtn" onclick="fetchVideo()">⬇ Download</button>
+    <div class="social-buttons">
+      <a href="https://www.youtube.com/channel/UCOKq2v5kgDSHfqsVPXWI-7Q?sub_confirmation=1" target="_blank" class="social-btn youtube-btn">🔴 Subscribe on YouTube</a>
+      <a href="https://wa.me/923220225993?text=Aslamualikum" target="_blank" class="social-btn whatsapp-btn">💬 WhatsApp</a>
+    </div>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Fetching video...</p>
+    </div>
+    <div class="video-info" id="videoInfo">
+      <div class="author-info">
+        <div class="author-avatar" id="authorAvatar">👤</div>
+        <div class="author-details">
+          <h4 id="authorName">@username</h4>
+          <p id="authorNickname">Nickname</p>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon">❤️</div>
+          <div class="stat-value" id="likesCount">0</div>
+          <div class="stat-label">Likes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">📤</div>
+          <div class="stat-value" id="sharesCount">0</div>
+          <div class="stat-label">Shares</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">👁️</div>
+          <div class="stat-value" id="viewsCount">0</div>
+          <div class="stat-label">Views</div>
+        </div>
+      </div>
+      <div class="video-caption">
+        <p id="videoCaption">Video caption will appear here...</p>
+      </div>
+      <div class="hashtags" id="hashtagsContainer"></div>
+      <div class="music-info">
+        <span>🎵</span>
+        <p id="musicInfo">Original Sound - @username</p>
+      </div>
+    </div>
+    <div class="video-container" id="videoContainer">
+      <video id="video" controls poster=""></video>
+    </div>
+    <div class="download-options" id="downloadOptions">
+      <button class="btn-video" onclick="downloadVideo()">⬇ Video</button>
+      <button class="btn-hd" onclick="showHDAd()">🎬 HD</button>
+      <button class="btn-mp3" onclick="downloadMP3()">🎵 MP3</button>
+    </div>
+    <div class="download-progress" id="downloadProgress">
+      <div class="progress-bar" id="progressBar">0%</div>
+    </div>
+    <div class="section">
+      <h3>✨ Features</h3>
+      <div class="feature-grid">
+        <div class="feature-item"><span>🎬</span>HD Videos</div>
+        <div class="feature-item"><span>🎵</span>MP3 Download</div>
+        <div class="feature-item"><span>💧</span>No Watermark</div>
+        <div class="feature-item"><span>⚡</span>Fast Speed</div>
+      </div>
+    </div>
+    <div class="ad-bottom">
+      <h3>🔥 MIAN X NIAZI - Premium Tools</h3>
+      <p>Video Downloader | Audio Extractor | No Watermark</p>
+    </div>
+  </div>
+  <div class="footer">
+    <p>Generated by NIAZI-MD</p>
+    <p style="margin-top: 10px; font-size: 10px;">We are not affiliated with TikTok, Douyin or ByteDance</p>
+    <p style="margin-top: 10px;"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Contact Us</a></p>
+    <p style="margin-top: 15px; color: #555;">© 2026 NIAZI-MD</p>
+  </div>
+  <div class="popup-overlay" id="popup" onclick="closePopupOutside(event)">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closePopup()">×</button>
+      <h2>🔥 MIAN X NIAZI</h2>
+      <div class="ad-box">
+        <h3>Premium HD Download</h3>
+        <p>High quality video without watermark</p>
+        <p style="color: #ff0050; font-weight: bold;">Sponsored by MIAN X NIAZI</p>
+      </div>
+      <p>Your download starts in:</p>
+      <div class="countdown" id="countdown">5</div>
+      <button onclick="startHDDownload()" id="hdBtn" style="display: none; padding: 12px 25px; background: #ff6b00; color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer;">Download HD Now</button>
+    </div>
+  </div>
+  <div class="toast" id="toast">Download started!</div>
+  <script>
+    let videoData = {};
+    let hdUrl = '';
+    function formatNumber(num) {
+      if (!num) return '0';
+      if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
+      if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+      if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+      return num.toString();
+    }
+    function checkInput() {
+      const url = document.getElementById('url').value.trim();
+      const mainBtn = document.getElementById('mainDownloadBtn');
+      const pastedIndicator = document.getElementById('pastedIndicator');
+      if (url.length > 10) {
+        mainBtn.classList.add('show');
+        pastedIndicator.classList.add('show');
+      } else {
+        mainBtn.classList.remove('show');
+        pastedIndicator.classList.remove('show');
+      }
+    }
+    async function pasteURL() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById('url').value = text;
+        checkInput();
+        showToast('Link pasted from clipboard!');
+      } catch (err) {
+        document.getElementById('url').focus();
+        showToast('Press Ctrl+V to paste', 'info');
+      }
+    }
+    async function fetchVideo() {
+      const url = document.getElementById('url').value.trim();
+      if (!url || url.length < 10) {
+        showToast('Please paste valid TikTok link!', 'error');
+        return;
+      }
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('videoInfo').classList.remove('show');
+      document.getElementById('videoContainer').classList.remove('show');
+      document.getElementById('downloadOptions').classList.remove('show');
+      try {
+        const apis = [
+          `https://tikwm.com/api/?url=${encodeURIComponent(url)}`,
+          `https://api.tiklydown.eu.org/api/download/v5?url=${encodeURIComponent(url)}`
+        ];
+        let data = null;
+        for (const api of apis) {
+          try {
+            const res = await fetch(api);
+            const result = await res.json();
+            if (result.data || result.result) {
+              data = result.data || result.result;
+              break;
+            }
+          } catch (e) {
+            console.log('API failed:', api);
+          }
+        }
+        if (!data) {
+          throw new Error('Video not found');
+        }
+        videoData = {
+          play: data.play || data.video1 || data.video,
+          hdplay: data.hdplay || data.video2 || data.video_hd || data.play,
+          music: data.music || data.audio,
+          cover: data.cover || data.thumbnail,
+          likes: data.like || data.likes || data.digg_count || 0,
+          shares: data.share || data.shares || data.share_count || 0,
+          views: data.play_count || data.views || data.view || 0,
+          author: data.author || {},
+          title: data.title || data.desc || '',
+          hashtags: data.hashtags || [],
+          music_info: data.music_info || {}
+        };
+        updateVideoInfo(videoData);
+        const video = document.getElementById('video');
+        video.src = videoData.play;
+        video.poster = videoData.cover;
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('videoInfo').classList.add('show');
+        document.getElementById('videoContainer').classList.add('show');
+        document.getElementById('downloadOptions').classList.add('show');
+        showToast('Video loaded! Choose format below');
+      } catch (error) {
+        document.getElementById('loading').style.display = 'none';
+        showToast('Failed to fetch video. Try another link!', 'error');
+        console.error(error);
+      }
+    }
+    function updateVideoInfo(data) {
+      const author = data.author || {};
+      document.getElementById('authorName').textContent = '@' + (author.unique_id || 'username');
+      document.getElementById('authorNickname').textContent = author.nickname || 'TikTok User';
+      document.getElementById('authorAvatar').textContent = author.avatar ? '' : '👤';
+      if (author.avatar) {
+        document.getElementById('authorAvatar').style.background = `url(${author.avatar}) center/cover`;
+      }
+      document.getElementById('likesCount').textContent = formatNumber(data.likes);
+      document.getElementById('sharesCount').textContent = formatNumber(data.shares);
+      document.getElementById('viewsCount').textContent = formatNumber(data.views);
+      document.getElementById('videoCaption').textContent = data.title || 'No caption';
+      const hashtagsContainer = document.getElementById('hashtagsContainer');
+      hashtagsContainer.innerHTML = '';
+      const hashtags = data.hashtags || [];
+      if (hashtags.length === 0 && data.title) {
+        const extracted = data.title.match(/#[\wÀ-ɏ]+/gi) || [];
+        extracted.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'hashtag';
+          span.textContent = tag;
+          hashtagsContainer.appendChild(span);
+        });
+      } else {
+        hashtags.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'hashtag';
+          span.textContent = '#' + (typeof tag === 'string' ? tag : tag.name || tag.hashtag_name);
+          hashtagsContainer.appendChild(span);
+        });
+      }
+      const music = data.music_info || {};
+      document.getElementById('musicInfo').textContent = music.title ? `🎵 ${music.title} - ${music.author || 'Unknown'}` : '🎵 Original Sound';
+    }
+    async function downloadFile(url, filename, type = 'video') {
+      if (!url) {
+        showToast('No file available!', 'error');
+        return;
+      }
+      showToast(`${type === 'video' ? 'Video' : 'Audio'} download starting...`, 'info');
+      const progressBar = document.getElementById('progressBar');
+      const progressContainer = document.getElementById('downloadProgress');
+      progressContainer.classList.add('show');
+      progressBar.style.width = '0%';
+      progressBar.textContent = '0%';
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const contentLength = response.headers.get('content-length');
+        const total = parseInt(contentLength, 10);
+        let loaded = 0;
+        const reader = response.body.getReader();
+        const chunks = [];
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+          loaded += value.length;
+          if (total) {
+            const percent = Math.round((loaded / total) * 100);
+            progressBar.style.width = percent + '%';
+            progressBar.textContent = percent + '%';
+          }
+        }
+        const blob = new Blob(chunks);
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(blobUrl);
+        progressContainer.classList.remove('show');
+        showToast(`${type === 'video' ? 'Video' : 'Audio'} downloaded successfully!`);
+      } catch (error) {
+        console.error('Download error:', error);
+        progressContainer.classList.remove('show');
+        showToast('Opening in new tab...', 'info');
+        window.open(url, '_blank');
+      }
+    }
+    function downloadVideo() {
+      if (!videoData.play) {
+        showToast('No video available!', 'error');
+        return;
+      }
+      const filename = `tiktok-video-${Date.now()}.mp4`;
+      downloadFile(videoData.play, filename, 'video');
+    }
+    function downloadMP3() {
+      if (!videoData.music) {
+        showToast('No audio available!', 'error');
+        return;
+      }
+      const filename = `tiktok-audio-${Date.now()}.mp3`;
+      downloadFile(videoData.music, filename, 'audio');
+    }
+    function showHDAd() {
+      if (!videoData.hdplay) {
+        showToast('HD not available!', 'error');
+        return;
+      }
+      hdUrl = videoData.hdplay;
+      document.getElementById('popup').style.display = 'flex';
+      let count = 5;
+      const countdownEl = document.getElementById('countdown');
+      const btn = document.getElementById('hdBtn');
+      btn.style.display = 'none';
+      countdownEl.style.display = 'block';
+      countdownEl.textContent = count;
+      const timer = setInterval(() => {
+        count--;
+        countdownEl.textContent = count;
+        if (count <= 0) {
+          clearInterval(timer);
+          countdownEl.style.display = 'none';
+          btn.style.display = 'inline-block';
+        }
+      }, 1000);
+    }
+    function startHDDownload() {
+      const filename = `tiktok-hd-video-${Date.now()}.mp4`;
+      downloadFile(hdUrl, filename, 'video');
+      closePopup();
+    }
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+    function closePopupOutside(event) {
+      if (event.target.id === 'popup') {
+        closePopup();
+      }
+    }
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.background = type === 'error' ? '#ff0050' : type === 'info' ? '#ff6b00' : '#25d366';
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
