@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>MIAN X NIAZI - Downloader</title>
+<title>MIAN X NIAZI</title>
 
 <style>
 *{
@@ -33,13 +32,17 @@ body::before{
     radial-gradient(circle at 50% 90%,#7d00ff,transparent 28%),
     radial-gradient(circle at 10% 90%,#00ff88,transparent 22%);
   filter:blur(70px);
-  opacity:.25;
+  opacity:.22;
   animation:bgMove 8s ease-in-out infinite alternate;
 }
 
 @keyframes bgMove{
-  from{transform:scale(1) rotate(0deg)}
-  to{transform:scale(1.12) rotate(8deg)}
+  from{
+    transform:scale(1) rotate(0deg);
+  }
+  to{
+    transform:scale(1.12) rotate(8deg);
+  }
 }
 
 /* CODING RAIN */
@@ -49,15 +52,15 @@ body::before{
   z-index:-2;
   overflow:hidden;
   pointer-events:none;
-  opacity:.13;
+  opacity:.12;
 }
 
 .code{
   position:absolute;
   top:-200px;
   font-family:monospace;
-  font-size:11px;
-  line-height:17px;
+  font-size:10px;
+  line-height:16px;
   font-weight:bold;
   white-space:pre;
   animation:fall linear infinite;
@@ -65,62 +68,67 @@ body::before{
 }
 
 @keyframes fall{
-  from{transform:translateY(-200px)}
-  to{transform:translateY(125vh)}
+  from{
+    transform:translateY(-200px);
+  }
+  to{
+    transform:translateY(125vh);
+  }
 }
 
 /* HEADER */
 header{
   text-align:center;
-  padding:28px 15px 10px;
+  padding:24px 15px 8px;
 }
 
 .logo{
-  font-size:31px;
+  font-size:27px;
   font-weight:900;
-  letter-spacing:3px;
+  letter-spacing:2px;
   animation:logoRGB 3s linear infinite;
 }
 
 @keyframes logoRGB{
   0%{
     color:#ff0055;
-    text-shadow:0 0 12px #ff0055;
+    text-shadow:0 0 10px #ff0055;
   }
   33%{
     color:#00eaff;
-    text-shadow:0 0 12px #00eaff;
+    text-shadow:0 0 10px #00eaff;
   }
   66%{
     color:#7d00ff;
-    text-shadow:0 0 12px #7d00ff;
+    text-shadow:0 0 10px #7d00ff;
   }
   100%{
     color:#ff0055;
-    text-shadow:0 0 12px #ff0055;
+    text-shadow:0 0 10px #ff0055;
   }
 }
 
 .subtitle{
-  color:#666;
-  font-size:13px;
-  margin-top:5px;
+  color:#777;
+  font-size:11px;
+  margin-top:4px;
 }
 
-/* MODE BUTTONS */
+/* MODE */
 .mode{
   display:flex;
   justify-content:center;
-  gap:10px;
-  margin:18px 10px;
+  gap:8px;
+  margin:15px 10px;
 }
 
 .mode button{
   border:2px solid #ddd;
   background:#fff;
   color:#111;
-  padding:10px 22px;
-  border-radius:30px;
+  padding:8px 18px;
+  border-radius:25px;
+  font-size:11px;
   font-weight:bold;
   cursor:pointer;
 }
@@ -141,27 +149,31 @@ header{
     );
   background-size:400%;
   animation:rgb 4s linear infinite;
-  box-shadow:0 0 15px #00eaff55;
+  box-shadow:0 0 12px #00eaff55;
 }
 
 @keyframes rgb{
-  0%{background-position:0%}
-  100%{background-position:400%}
+  0%{
+    background-position:0%;
+  }
+  100%{
+    background-position:400%;
+  }
 }
 
 /* CONTAINER */
 .container{
   width:92%;
-  max-width:650px;
+  max-width:620px;
   margin:auto;
 }
 
 .box{
   position:relative;
   background:rgba(255,255,255,.96);
-  border-radius:22px;
-  padding:24px;
-  box-shadow:0 10px 35px #00000015;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 8px 30px #00000012;
 }
 
 .box::before{
@@ -169,7 +181,7 @@ header{
   position:absolute;
   inset:-2px;
   z-index:-1;
-  border-radius:24px;
+  border-radius:22px;
   background:
     linear-gradient(
       90deg,
@@ -187,56 +199,56 @@ header{
 /* TITLE */
 .title{
   text-align:center;
-  font-size:24px;
+  font-size:21px;
   font-weight:900;
-  margin-bottom:7px;
+  margin-bottom:5px;
 }
 
 .desc{
   text-align:center;
   color:#777;
-  font-size:13px;
-  margin-bottom:18px;
+  font-size:11px;
+  margin-bottom:15px;
 }
 
-/* INPUT AREA */
+/* FORM */
 .form{
   display:flex;
   flex-direction:column;
-  gap:9px;
+  gap:8px;
 }
 
 .inputRow{
   display:flex;
-  gap:6px;
+  gap:5px;
   width:100%;
 }
 
 input{
   flex:1;
   min-width:0;
-  padding:14px;
+  padding:12px;
   border:2px solid #ddd;
-  border-radius:11px;
+  border-radius:10px;
   outline:none;
   background:#fff;
   color:#111;
-  font-size:14px;
+  font-size:12px;
 }
 
 input:focus{
   border-color:#00d9ff;
-  box-shadow:0 0 12px #00eaff44;
+  box-shadow:0 0 10px #00eaff44;
 }
 
-/* PASTE / CLEAR */
+/* PASTE CLEAR */
 .smallBtn{
   border:1px solid #ccc;
   background:#111;
   color:#fff;
-  border-radius:10px;
-  padding:0 12px;
-  font-size:11px;
+  border-radius:9px;
+  padding:0 10px;
+  font-size:9px;
   font-weight:bold;
   cursor:pointer;
 }
@@ -245,19 +257,18 @@ input:focus{
   background:#333;
 }
 
-/* DOWNLOAD BUTTON
-   PEHLE HIDDEN */
+/* DOWNLOAD */
 .downloadBtn{
   display:none;
-  width:125px;
-  height:38px;
+  width:115px;
+  height:34px;
   margin:auto;
   border:0;
-  border-radius:10px;
+  border-radius:9px;
   background:#111;
   color:#fff;
+  font-size:10px;
   font-weight:bold;
-  font-size:12px;
   cursor:pointer;
   position:relative;
   overflow:hidden;
@@ -293,13 +304,13 @@ input:focus{
 /* MESSAGE */
 .message{
   display:none;
-  margin-top:12px;
-  padding:11px;
-  border-radius:10px;
+  margin-top:10px;
+  padding:9px;
+  border-radius:9px;
   text-align:center;
   background:#fff1f1;
   color:#d00000;
-  font-size:12px;
+  font-size:10px;
 }
 
 .message.show{
@@ -310,10 +321,10 @@ input:focus{
 .loading{
   display:none;
   text-align:center;
-  padding:20px;
+  padding:17px;
   color:#7d00ff;
+  font-size:11px;
   font-weight:bold;
-  font-size:13px;
 }
 
 .loading.show{
@@ -323,7 +334,7 @@ input:focus{
 /* RESULT */
 .result{
   display:none;
-  margin-top:18px;
+  margin-top:16px;
 }
 
 .result.show{
@@ -332,7 +343,7 @@ input:focus{
 
 .videoBox{
   background:#000;
-  border-radius:15px;
+  border-radius:13px;
   overflow:hidden;
   border:2px solid #222;
 }
@@ -346,35 +357,35 @@ video{
 
 /* INFO */
 .info{
-  padding:12px 2px;
+  padding:10px 2px;
 }
 
 .info h3{
-  font-size:16px;
+  font-size:14px;
 }
 
 .info p{
   color:#777;
-  font-size:12px;
-  margin-top:4px;
+  font-size:10px;
+  margin-top:3px;
 }
 
-/* ACTIONS */
+/* ACTION BUTTONS */
 .buttons{
   display:flex;
-  gap:8px;
+  gap:7px;
 }
 
 .action{
   flex:1;
   min-width:0;
-  height:42px;
+  height:38px;
   border:0;
-  border-radius:10px;
+  border-radius:9px;
   background:#111;
   color:#fff;
+  font-size:10px;
   font-weight:bold;
-  font-size:12px;
   cursor:pointer;
   position:relative;
   overflow:hidden;
@@ -407,8 +418,8 @@ video{
 .social{
   display:flex;
   justify-content:center;
-  gap:12px;
-  margin:25px 0;
+  gap:10px;
+  margin:20px 0;
 }
 
 .social a{
@@ -416,12 +427,11 @@ video{
   overflow:hidden;
   color:#fff;
   text-decoration:none;
-  padding:11px 20px;
-  border-radius:25px;
-  font-size:13px;
+  padding:9px 17px;
+  border-radius:22px;
+  font-size:10px;
   font-weight:bold;
   background:#111;
-  border:0;
 }
 
 .social a::before{
@@ -452,54 +462,55 @@ video{
 .photo{
   width:100%;
   display:block;
-  border-radius:17px;
+  border-radius:15px;
   border:2px solid #ddd;
 }
 
 /* FEATURES */
 .features{
   width:92%;
-  max-width:800px;
-  margin:25px auto;
+  max-width:750px;
+  margin:20px auto;
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  gap:8px;
 }
 
 .feature{
   background:rgba(255,255,255,.94);
   border:1px solid #ddd;
-  border-radius:14px;
-  padding:17px 8px;
+  border-radius:12px;
+  padding:13px 7px;
   text-align:center;
 }
 
 .feature b{
   display:block;
-  margin-bottom:5px;
+  font-size:11px;
+  margin-bottom:4px;
 }
 
 .feature span{
   color:#777;
-  font-size:11px;
+  font-size:9px;
 }
 
 footer{
   text-align:center;
-  padding:25px;
+  padding:20px;
   color:#777;
-  font-size:12px;
+  font-size:10px;
 }
 
 /* MOBILE */
 @media(max-width:600px){
 
   .logo{
-    font-size:27px;
+    font-size:25px;
   }
 
   .box{
-    padding:20px 15px;
+    padding:17px 13px;
   }
 
   .inputRow{
@@ -508,11 +519,15 @@ footer{
   }
 
   .smallBtn{
-    padding:0 10px;
+    padding:0 9px;
   }
 
   .features{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr 1fr;
+  }
+
+  .feature{
+    padding:12px 4px;
   }
 }
 </style>
@@ -520,6 +535,7 @@ footer{
 
 <body>
 
+<!-- CODING RAIN -->
 <div id="codeRain"></div>
 
 <header>
@@ -529,14 +545,13 @@ footer{
   </div>
 
   <div class="subtitle">
-    TikTok & Instagram Video Downloader
+    TikTok & Instagram Downloader
   </div>
 
 </header>
 
 
-<!-- TIKTOK / INSTAGRAM -->
-
+<!-- MODE BUTTONS -->
 <div class="mode">
 
   <button
@@ -562,13 +577,13 @@ footer{
   <div
     class="title"
     id="title">
-    TikTok Video Downloader
+    TikTok Downloader
   </div>
 
   <div
     class="desc"
     id="desc">
-    Paste your TikTok video link below
+    Paste your TikTok video link
   </div>
 
 
@@ -582,7 +597,7 @@ footer{
         id="url"
         type="text"
         autocomplete="off"
-        placeholder="Paste TikTok link here..."
+        placeholder="Paste TikTok link..."
       >
 
       <button
@@ -602,7 +617,7 @@ footer{
     </div>
 
 
-    <!-- CHOTA DOWNLOAD BUTTON -->
+    <!-- SMALL DOWNLOAD BUTTON -->
     <button
       type="submit"
       id="downloadBtn"
@@ -684,20 +699,22 @@ footer{
 
 
 <!-- RGB SOCIAL BUTTONS -->
-
 <div class="social">
 
   <a
-    href="https://www.tiktok.com/"
-    target="_blank">
+    href="https://www.tiktok.com/@niazimd2?_r=1&_t=ZS-99qIICgqU2W"
+    target="_blank"
+    rel="noopener">
 
     <span>🎵 TikTok</span>
 
   </a>
 
+
   <a
-    href="https://wa.me/"
-    target="_blank">
+    href="https://wa.me/923220225993"
+    target="_blank"
+    rel="noopener">
 
     <span>💬 WhatsApp</span>
 
@@ -706,16 +723,18 @@ footer{
 </div>
 
 
+<!-- NEW IMAGE -->
 <div class="container">
 
   <img
     class="photo"
-    src="https://cdn.phototourl.com/free/2026-08-29-1ed450fe-a722-47e2-bff2-bbaf6ae113fb.jpg"
+    src="https://cdn.phototourl.com/free/2026-09-18-3c8925d4-2f2c-43ed-b72c-b04cb29ef866.png"
     alt="MIAN X NIAZI">
 
 </div>
 
 
+<!-- FEATURES -->
 <div class="features">
 
   <div class="feature">
@@ -725,12 +744,12 @@ footer{
 
   <div class="feature">
     <b>📱 MOBILE</b>
-    <span>Android & iPhone</span>
+    <span>Mobile friendly</span>
   </div>
 
   <div class="feature">
     <b>🆓 FREE</b>
-    <span>No registration</span>
+    <span>Free to use</span>
   </div>
 
 </div>
@@ -842,17 +861,17 @@ function changeMode(newMode){
     document
       .getElementById("title")
       .innerText=
-      "Instagram Video Downloader";
+      "Instagram Downloader";
 
     document
       .getElementById("desc")
       .innerText=
-      "Paste your Instagram Reel link below";
+      "Paste your Instagram Reel link";
 
     document
       .getElementById("url")
       .placeholder=
-      "Paste Instagram Reel link here...";
+      "Paste Instagram link...";
 
     document
       .getElementById("tikMode")
@@ -867,17 +886,17 @@ function changeMode(newMode){
     document
       .getElementById("title")
       .innerText=
-      "TikTok Video Downloader";
+      "TikTok Downloader";
 
     document
       .getElementById("desc")
       .innerText=
-      "Paste your TikTok video link below";
+      "Paste your TikTok video link";
 
     document
       .getElementById("url")
       .placeholder=
-      "Paste TikTok link here...";
+      "Paste TikTok link...";
 
     document
       .getElementById("insMode")
@@ -890,7 +909,7 @@ function changeMode(newMode){
 }
 
 
-/* ================= INPUT TYPING ================= */
+/* ================= INPUT ================= */
 
 document
 .getElementById("url")
@@ -909,6 +928,7 @@ document
   }else{
 
     btn.classList.remove("show");
+
     clearResult();
   }
 
@@ -929,7 +949,7 @@ document
     if(!text){
 
       showMessage(
-        "❌ Clipboard empty hai."
+        "Clipboard empty hai."
       );
 
       return;
@@ -951,7 +971,7 @@ document
   }catch(error){
 
     showMessage(
-      "⚠️ Paste permission allow karo."
+      "Paste permission allow karo."
     );
 
   }
@@ -1001,7 +1021,7 @@ document
   if(!url){
 
     showMessage(
-      "❌ Pehle link paste karo."
+      "Pehle link paste karo."
     );
 
     return;
@@ -1080,7 +1100,7 @@ async function getInstagram(url){
     setLoading(false);
 
     showMessage(
-      "❌ Instagram video nahi mila. Public Reel link try karo."
+      "Instagram video nahi mila."
     );
 
   }
@@ -1131,6 +1151,8 @@ async function getTikTok(url){
     }
 
 
+    /* SECOND API */
+
     response=
       await fetch(
         "https://api.tiklydown.eu.org/api/download/v5?url="+
@@ -1179,7 +1201,7 @@ async function getTikTok(url){
     setLoading(false);
 
     showMessage(
-      "❌ TikTok video nahi mila."
+      "TikTok video nahi mila."
     );
 
   }
@@ -1309,7 +1331,9 @@ async function downloadFile(url,filename){
 
     if(!response.ok){
 
-      throw new Error("Download failed");
+      throw new Error(
+        "Download failed"
+      );
 
     }
 
@@ -1323,6 +1347,7 @@ async function downloadFile(url,filename){
       document.createElement("a");
 
     a.href=blobURL;
+
     a.download=filename;
 
     document.body.appendChild(a);
@@ -1341,7 +1366,9 @@ async function downloadFile(url,filename){
       document.createElement("a");
 
     a.href=url;
+
     a.target="_blank";
+
     a.rel="noopener";
 
     document.body.appendChild(a);
@@ -1361,7 +1388,10 @@ function setLoading(show){
 
   document
     .getElementById("loading")
-    .classList.toggle("show",show);
+    .classList.toggle(
+      "show",
+      show
+    );
 
 }
 
