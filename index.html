@@ -2,460 +2,451 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MIAN X NIAZI - Video Downloader</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html,body{
-  min-height:100%;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:Arial,sans-serif;
-  background:#050505;
-  color:white;
+  background:#fff;
+  color:#111;
+  min-height:100vh;
   overflow-x:hidden;
 }
 
-/* RGB BACKGROUND */
-body:before{
-  content:"";
-  position:fixed;
-  width:100%;
-  height:100%;
-  inset:0;
-  z-index:-3;
-  background:
-    radial-gradient(circle at 15% 20%,#ff0055 0,transparent 25%),
-    radial-gradient(circle at 85% 20%,#00eaff 0,transparent 25%),
-    radial-gradient(circle at 50% 90%,#8a00ff 0,transparent 30%),
-    #050505;
-  filter:blur(25px);
-  opacity:.45;
-}
-
-body:after{
-  content:"";
+/* ===== CODE RAIN ===== */
+.code-rain{
   position:fixed;
   inset:0;
-  z-index:-2;
-  background:rgba(0,0,0,.68);
-}
-
-/* RGB RAIN */
-#rain{
-  position:fixed;
-  inset:0;
-  z-index:-1;
   overflow:hidden;
   pointer-events:none;
-  opacity:.16;
+  z-index:0;
+  background:#fff;
 }
 
-.drop{
+.rain{
   position:absolute;
-  top:-200px;
+  top:-100px;
+  white-space:nowrap;
+  writing-mode:vertical-rl;
   font-family:monospace;
   font-size:13px;
-  line-height:18px;
+  font-weight:bold;
+  opacity:.22;
   animation:rain linear infinite;
-  text-shadow:
-    0 0 5px #00ffff,
-    0 0 10px #ff00ff;
 }
+
+.rain:nth-child(3n){color:#ff0050}
+.rain:nth-child(3n+1){color:#00aaff}
+.rain:nth-child(3n+2){color:#00b050}
 
 @keyframes rain{
-  from{transform:translateY(-200px)}
-  to{transform:translateY(120vh)}
+  from{transform:translateY(-120px)}
+  to{transform:translateY(115vh)}
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 header{
+  position:relative;
+  z-index:2;
+  width:100%;
+  padding:9px 5px;
   text-align:center;
-  padding:30px 15px 15px;
+  font-size:15px;
+  font-weight:bold;
+  background:#fff;
+  border-bottom:2px solid;
+  border-image:linear-gradient(
+    90deg,#ff0050,#00aaff,#00ff66,#ff00ff
+  ) 1;
+  animation:rgbText 4s linear infinite;
 }
 
-.logo{
-  font-size:32px;
-  font-weight:900;
-  letter-spacing:3px;
+.container{
+  position:relative;
+  z-index:2;
+  width:94%;
+  max-width:420px;
+  margin:auto;
+  padding:8px 0 18px;
+}
+
+.brand{
+  text-align:center;
+  font-size:14px;
+  font-weight:bold;
+  margin:8px 0;
   animation:rgbText 3s linear infinite;
 }
 
-@keyframes rgbText{
-  0%{text-shadow:0 0 8px #ff0055}
-  33%{text-shadow:0 0 12px #00ffff}
-  66%{text-shadow:0 0 12px #7d00ff}
-  100%{text-shadow:0 0 8px #ff0055}
-}
-
-.subtitle{
-  margin-top:8px;
-  color:#aaa;
-  font-size:13px;
-}
-
-/* MODE */
-.mode{
+/* ===== MODE BUTTONS ===== */
+.mode-buttons{
   display:flex;
-  justify-content:center;
-  gap:12px;
-  margin:20px 10px;
+  gap:6px;
+  margin:8px 0;
 }
 
-.mode button{
-  position:relative;
-  padding:12px 25px;
-  border-radius:30px;
-  border:1px solid #555;
-  background:#111;
-  color:white;
-  cursor:pointer;
+.mode-btn{
+  flex:1;
+  padding:10px 5px;
+  border:none;
+  border-radius:18px;
+  color:#fff;
+  font-size:11px;
   font-weight:bold;
-  overflow:hidden;
+  cursor:pointer;
+  background:#999;
 }
 
-.mode button:before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  z-index:-1;
+.mode-btn.active{
   background:linear-gradient(
-    90deg,
-    #ff0055,
-    #ffea00,
-    #00ff88,
-    #00eaff,
-    #7d00ff,
-    #ff0055
+    90deg,#ff0050,#00aaff,#00d95f,#ff00ff
   );
-  background-size:400%;
-  animation:rgb 5s linear infinite;
+  background-size:300% 100%;
+  animation:rgbBg 4s linear infinite;
 }
 
-.mode button.active{
-  box-shadow:
-    0 0 10px #00eaff,
-    0 0 25px #ff00ff;
-}
-
-@keyframes rgb{
-  0%{background-position:0%}
-  100%{background-position:400%}
-}
-
-/* MAIN */
-.container{
-  width:92%;
-  max-width:650px;
-  margin:auto;
-}
-
-.box{
-  position:relative;
-  padding:25px;
-  border-radius:22px;
-  background:#0b0b0b;
-  border:1px solid #333;
-  box-shadow:
-    0 0 15px #ff005522,
-    0 0 30px #00eaff22;
-  overflow:hidden;
-}
-
-.box:before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:3px;
-  background:linear-gradient(
-    90deg,
-    #ff0055,
-    #ffea00,
-    #00ff88,
-    #00eaff,
-    #7d00ff,
-    #ff0055
-  );
-  background-size:400%;
-  animation:rgb 4s linear infinite;
-}
-
-.title{
+h2{
   text-align:center;
-  font-size:25px;
-  font-weight:900;
-  margin-bottom:8px;
+  font-size:15px;
+  margin:8px 0;
 }
 
-.desc{
-  text-align:center;
-  color:#888;
-  font-size:13px;
-  margin-bottom:20px;
-}
-
-/* FORM */
-form{
+.input-box{
   display:flex;
-  gap:10px;
+  gap:6px;
+  margin-bottom:8px;
 }
 
 input{
   flex:1;
   min-width:0;
-  padding:15px;
-  border-radius:12px;
-  border:1px solid #444;
-  background:#151515;
-  color:white;
-  outline:none;
-  font-size:14px;
+  padding:9px 11px;
+  border:2px solid #ddd;
+  border-radius:18px;
+  background:#fff;
+  color:#111;
+  font-size:12px;
 }
 
 input:focus{
-  border-color:#00eaff;
-  box-shadow:0 0 12px #00eaff44;
+  outline:none;
+  border-color:#ff0050;
 }
 
-.downloadBtn{
-  position:relative;
-  border:0;
-  border-radius:12px;
-  padding:0 22px;
-  background:#111;
-  color:white;
-  font-weight:bold;
+button{
   cursor:pointer;
-  overflow:hidden;
+  border:none;
+  font-weight:bold;
 }
 
-.downloadBtn:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    90deg,
-    #ff0055,
-    #7d00ff,
-    #00eaff,
-    #00ff88,
-    #ffea00,
-    #ff0055
-  );
-  background-size:400%;
-  animation:rgb 4s linear infinite;
-  z-index:0;
+.paste-btn{
+  padding:9px 12px;
+  border-radius:18px;
+  color:#fff;
+  background:#111;
+  font-size:11px;
 }
 
-.downloadBtn span{
-  position:relative;
-  z-index:1;
-}
-
-/* MESSAGE */
-.message{
+.download-btn{
   display:none;
-  margin-top:15px;
-  padding:12px;
-  border-radius:10px;
-  text-align:center;
-  background:#151515;
-  color:#ff7777;
+  width:100%;
+  padding:10px;
+  border-radius:18px;
+  color:#fff;
   font-size:13px;
+  margin:6px 0;
+  background:linear-gradient(
+    90deg,#ff0050,#00aaff,#00d95f,#ff00ff,#ff0050
+  );
+  background-size:300% 100%;
+  animation:rgbBg 4s linear infinite;
 }
 
-.message.show{
+.download-btn.show{
   display:block;
 }
 
-/* LOADING */
+.social-buttons{
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  margin:8px 0;
+}
+
+.social-btn{
+  flex:1;
+  padding:8px 5px;
+  border-radius:18px;
+  text-decoration:none;
+  color:#fff;
+  text-align:center;
+  font-size:10px;
+  background:linear-gradient(
+    90deg,#ff0050,#00aaff,#00d95f,#ff00ff
+  );
+  background-size:300% 100%;
+  animation:rgbBg 4s linear infinite;
+}
+
+.pasted-indicator{
+  display:none;
+  text-align:center;
+  font-size:10px;
+  color:#00a050;
+}
+
+.pasted-indicator.show{
+  display:block;
+}
+
+/* ===== LOADING ===== */
 .loading{
   display:none;
   text-align:center;
-  padding:25px;
-  color:#00eaff;
+  padding:12px;
+  font-size:11px;
 }
 
-.loading.show{
-  display:block;
+.spinner{
+  width:25px;
+  height:25px;
+  margin:auto auto 7px;
+  border:3px solid #ddd;
+  border-top-color:#ff0050;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
 }
 
-/* RESULT */
-.result{
+/* ===== VIDEO INFO ===== */
+.video-info{
   display:none;
-  margin-top:20px;
+  background:rgba(255,255,255,.94);
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:9px;
+  margin:8px 0;
+  box-shadow:0 3px 15px #ddd;
 }
 
-.result.show{
+.video-info.show{
   display:block;
 }
 
-.videoBox{
-  border-radius:16px;
+.author-info{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding-bottom:8px;
+  margin-bottom:8px;
+  border-bottom:1px solid #eee;
+}
+
+.author-avatar{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#111;
+  color:#fff;
+  font-size:15px;
   overflow:hidden;
-  background:#000;
-  border:1px solid #333;
-  box-shadow:
-    0 0 15px #00eaff33,
-    0 0 25px #ff00ff22;
+}
+
+.author-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.author-details h4{
+  font-size:12px;
+}
+
+.author-details p{
+  font-size:10px;
+  color:#777;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+  margin-bottom:7px;
+}
+
+.stat-item{
+  padding:7px 3px;
+  text-align:center;
+  border-radius:7px;
+  background:#f5f5f5;
+}
+
+.stat-icon{
+  font-size:14px;
+}
+
+.stat-value{
+  font-size:11px;
+  font-weight:bold;
+}
+
+.stat-label{
+  font-size:8px;
+  color:#777;
+}
+
+.video-caption{
+  padding:7px;
+  border-radius:7px;
+  background:#f5f5f5;
+  font-size:10px;
+}
+
+.video-caption p{
+  font-size:10px;
+  line-height:1.4;
+}
+
+/* ===== VIDEO ===== */
+.video-container{
+  display:none;
+  margin:8px 0;
+  text-align:center;
+}
+
+.video-container.show{
+  display:block;
 }
 
 video{
   width:100%;
-  display:block;
-  max-height:600px;
+  max-height:400px;
+  border-radius:10px;
   background:#000;
 }
 
-.info{
-  padding:15px 2px;
+/* ===== DOWNLOAD OPTIONS ===== */
+.download-options{
+  display:none;
+  gap:6px;
+  justify-content:center;
+  margin:7px 0;
 }
 
-.info h3{
-  font-size:16px;
-}
-
-.info p{
-  color:#888;
-  font-size:12px;
-  margin-top:5px;
-}
-
-/* BUTTONS */
-.buttons{
+.download-options.show{
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;
 }
 
-.action{
+.download-options button{
   flex:1;
-  min-width:130px;
-  border:1px solid #444;
-  border-radius:12px;
-  padding:14px 10px;
-  background:#111;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-}
-
-.action:before{
-  content:"";
-  position:absolute;
-  inset:0;
+  padding:9px 4px;
+  border-radius:18px;
+  color:#fff;
+  font-size:10px;
   background:linear-gradient(
-    90deg,
-    #ff0055,
-    #7d00ff,
-    #00eaff,
-    #00ff88,
-    #ffea00
+    90deg,#ff0050,#00aaff,#00d95f,#ff00ff
   );
-  background-size:400%;
-  animation:rgb 5s linear infinite;
-  opacity:.8;
+  background-size:300% 100%;
+  animation:rgbBg 4s linear infinite;
 }
 
-.action span{
+/* ===== SECTION ===== */
+.section{
+  margin-top:9px;
+  padding:9px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  background:rgba(255,255,255,.94);
+}
+
+.section h3{
+  text-align:center;
+  font-size:12px;
+  margin-bottom:7px;
+  animation:rgbText 3s linear infinite;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:5px;
+}
+
+.feature-item{
+  padding:8px;
+  border-radius:7px;
+  background:#f5f5f5;
+  text-align:center;
+  font-size:9px;
+}
+
+.feature-item span{
+  display:block;
+  font-size:17px;
+  margin-bottom:2px;
+}
+
+.ad-bottom{
+  margin-top:8px;
+  padding:8px;
+  text-align:center;
+  border-radius:9px;
+  border:1px solid #ddd;
+  background:#fff;
+  font-size:9px;
+}
+
+.ad-bottom h3{
+  font-size:11px;
+  animation:rgbText 3s linear infinite;
+}
+
+.bottom-brand-image{
   position:relative;
   z-index:2;
-}
-
-.action:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 15px #00eaff55;
-}
-
-/* SOCIAL */
-.social{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  margin:25px 0;
-}
-
-.social a{
-  text-decoration:none;
-  color:white;
-  background:#111;
-  border:1px solid #333;
-  border-radius:25px;
-  padding:10px 17px;
-  font-size:13px;
-}
-
-/* IMAGE */
-.photo{
-  width:100%;
-  border-radius:18px;
-  margin-top:10px;
-  border:1px solid #333;
-}
-
-/* FEATURES */
-.features{
-  width:92%;
-  max-width:800px;
-  margin:25px auto;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.feature{
-  background:#0b0b0b;
-  border:1px solid #333;
-  border-radius:15px;
-  padding:18px 8px;
-  text-align:center;
-}
-
-.feature b{
   display:block;
-  margin-bottom:7px;
+  width:94%;
+  max-width:420px;
+  margin:5px auto 15px;
+  border-radius:10px;
 }
 
-.feature span{
-  color:#777;
-  font-size:11px;
+/* ===== RGB ===== */
+@keyframes rgbText{
+  0%{color:#ff0050}
+  25%{color:#00aaff}
+  50%{color:#00c853}
+  75%{color:#ff00ff}
+  100%{color:#ff0050}
 }
 
-footer{
-  text-align:center;
-  padding:25px;
-  color:#666;
-  font-size:12px;
+@keyframes rgbBg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-@media(max-width:600px){
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
 
-  form{
-    flex-direction:column;
+@media(max-width:380px){
+  .social-btn{
+    font-size:9px;
+    padding:7px 3px;
   }
 
-  .downloadBtn{
-    height:50px;
+  input{
+    font-size:11px;
   }
 
-  .features{
-    grid-template-columns:1fr;
-  }
-
-  .logo{
-    font-size:27px;
+  .container{
+    width:95%;
   }
 }
 </style>
@@ -463,851 +454,765 @@ footer{
 
 <body>
 
-<div id="rain"></div>
+<!-- ===== CODE RAIN ===== -->
+<div class="code-rain">
 
-<header>
-  <div class="logo">MIAN X NIAZI</div>
-  <div class="subtitle">
-    TikTok & Instagram Video Downloader
+  <div class="rain" style="left:2%;animation-duration:19s;animation-delay:-8s">
+    MIAN X NIAZI<br>010101<br>MIAN X NIAZI<br>&lt;/&gt;<br>NIAZI-MD
   </div>
+
+  <div class="rain" style="left:11%;animation-duration:23s;animation-delay:-15s">
+    MIAN X NIAZI<br>101010<br>NIAZI-MD<br>MIAN X NIAZI
+  </div>
+
+  <div class="rain" style="left:21%;animation-duration:18s;animation-delay:-5s">
+    MIAN X NIAZI<br>&lt;code&gt;<br>010101<br>MIAN X NIAZI
+  </div>
+
+  <div class="rain" style="left:32%;animation-duration:25s;animation-delay:-17s">
+    NIAZI-MD<br>MIAN X NIAZI<br>101010<br>&lt;html&gt;
+  </div>
+
+  <div class="rain" style="left:44%;animation-duration:20s;animation-delay:-10s">
+    MIAN X NIAZI<br>010101<br>&lt;/&gt;<br>MIAN X NIAZI
+  </div>
+
+  <div class="rain" style="left:56%;animation-duration:24s;animation-delay:-20s">
+    MIAN X NIAZI<br>NIAZI-MD<br>101010<br>MIAN X NIAZI
+  </div>
+
+  <div class="rain" style="left:68%;animation-duration:19s;animation-delay:-7s">
+    &lt;script&gt;<br>MIAN X NIAZI<br>010101<br>NIAZI-MD
+  </div>
+
+  <div class="rain" style="left:80%;animation-duration:26s;animation-delay:-18s">
+    MIAN X NIAZI<br>101010<br>&lt;code&gt;<br>MIAN X NIAZI
+  </div>
+
+  <div class="rain" style="left:92%;animation-duration:21s;animation-delay:-12s">
+    NIAZI-MD<br>MIAN X NIAZI<br>010101<br>&lt;/&gt;
+  </div>
+
+</div>
+
+<header id="headerTitle">
+  🔥 TIKTOK VIDEO DOWNLOADER
 </header>
 
-<div class="mode">
-
-  <button
-    id="tikMode"
-    class="active"
-    onclick="changeMode('tiktok')">
-    🎵 TikTok
-  </button>
-
-  <button
-    id="insMode"
-    onclick="changeMode('instagram')">
-    📸 Instagram
-  </button>
-
-</div>
-
 <div class="container">
 
-  <div class="box">
+  <div class="brand">🔥 MIAN X NIAZI</div>
 
-    <div class="title" id="title">
-      TikTok Video Downloader
-    </div>
+  <!-- ===== MODE ===== -->
+  <div class="mode-buttons">
 
-    <div class="desc" id="desc">
-      Paste your TikTok video link below
-    </div>
+    <button
+      class="mode-btn active"
+      id="tiktokMode"
+      onclick="setMode('tiktok')"
+    >
+      🎵 TikTok
+    </button>
 
-    <form id="form">
+    <button
+      class="mode-btn"
+      id="instagramMode"
+      onclick="setMode('instagram')"
+    >
+      📸 Instagram
+    </button>
 
-      <input
-        id="url"
-        type="text"
-        autocomplete="off"
-        placeholder="Paste TikTok link here..."
-      >
+  </div>
 
-      <button class="downloadBtn" type="submit">
-        <span>DOWNLOAD</span>
-      </button>
+  <h2 id="inputTitle">
+    Paste TikTok Link
+  </h2>
 
-    </form>
+  <div class="input-box">
 
-    <div id="message" class="message"></div>
+    <input
+      type="text"
+      id="url"
+      placeholder="Paste TikTok link..."
+      oninput="checkInput()"
+    >
 
-    <div id="loading" class="loading">
-      ⚡ Processing your video...
-    </div>
+    <button
+      class="paste-btn"
+      onclick="pasteURL()"
+    >
+      📋 Paste
+    </button>
 
-    <div id="result" class="result">
+  </div>
 
-      <div class="videoBox">
-        <video
-          id="video"
-          controls
-          playsinline
-          preload="metadata">
-        </video>
+  <div
+    class="pasted-indicator"
+    id="pastedIndicator"
+  >
+    ✓ Link ready
+  </div>
+
+  <button
+    class="download-btn"
+    id="mainDownloadBtn"
+    onclick="fetchVideo()"
+  >
+    ⬇ Download
+  </button>
+
+  <!-- ===== SOCIAL ===== -->
+  <div class="social-buttons">
+
+    <a
+      href="https://www.tiktok.com/@niazimd2?_r=1&_t=ZS-99VtuxS0ZZk"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="social-btn"
+    >
+      🎵 TikTok
+    </a>
+
+    <a
+      href="https://wa.me/923220225993"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="social-btn"
+    >
+      💬 WhatsApp
+    </a>
+
+  </div>
+
+  <!-- ===== LOADING ===== -->
+  <div class="loading" id="loading">
+
+    <div class="spinner"></div>
+
+    <p id="loadingText">
+      Fetching video...
+    </p>
+
+  </div>
+
+  <!-- ===== INFO ===== -->
+  <div class="video-info" id="videoInfo">
+
+    <div class="author-info">
+
+      <div class="author-avatar" id="authorAvatar">
+        👤
       </div>
 
-      <div class="info">
-        <h3 id="videoTitle">Video</h3>
-        <p id="author"></p>
+      <div class="author-details">
+
+        <h4 id="authorName">
+          @username
+        </h4>
+
+        <p id="authorNickname">
+          Video
+        </p>
+
       </div>
 
-      <div class="buttons">
+    </div>
 
-        <button
-          id="videoBtn"
-          class="action">
-          <span>⬇ VIDEO</span>
-        </button>
+    <div class="stats-grid">
 
-        <button
-          id="hdBtn"
-          class="action">
-          <span>⚡ HD</span>
-        </button>
+      <div class="stat-item">
+        <div class="stat-icon">❤️</div>
+        <div class="stat-value" id="likesCount">0</div>
+        <div class="stat-label">Likes</div>
+      </div>
 
-        <button
-          id="mp3Btn"
-          class="action">
-          <span>🎵 MP3</span>
-        </button>
+      <div class="stat-item">
+        <div class="stat-icon">📤</div>
+        <div class="stat-value" id="sharesCount">0</div>
+        <div class="stat-label">Shares</div>
+      </div>
 
+      <div class="stat-item">
+        <div class="stat-icon">👁️</div>
+        <div class="stat-value" id="viewsCount">0</div>
+        <div class="stat-label">Views</div>
+      </div>
+
+    </div>
+
+    <div class="video-caption">
+      <p id="videoCaption">
+        Video caption...
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ===== VIDEO ===== -->
+  <div
+    class="video-container"
+    id="videoContainer"
+  >
+
+    <video
+      id="video"
+      controls
+      playsinline
+    ></video>
+
+  </div>
+
+  <!-- ===== DOWNLOAD OPTIONS ===== -->
+  <div
+    class="download-options"
+    id="downloadOptions"
+  >
+
+    <button
+      id="videoDownloadButton"
+      onclick="downloadVideo()"
+    >
+      ⬇ Video
+    </button>
+
+    <button
+      id="hdButton"
+      onclick="downloadHD()"
+    >
+      🎬 HD
+    </button>
+
+    <button
+      id="mp3Button"
+      onclick="downloadMP3()"
+    >
+      🎵 MP3
+    </button>
+
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <div class="section">
+
+    <h3>
+      ✨ Features
+    </h3>
+
+    <div class="feature-grid">
+
+      <div class="feature-item">
+        <span>🎬</span>
+        HD Videos
+      </div>
+
+      <div class="feature-item">
+        <span>🎵</span>
+        MP3 Download
+      </div>
+
+      <div class="feature-item">
+        <span>💧</span>
+        No Watermark
+      </div>
+
+      <div class="feature-item">
+        <span>⚡</span>
+        Fast Speed
       </div>
 
     </div>
 
   </div>
 
-</div>
+  <div class="ad-bottom">
 
-<div class="social">
+    <h3>
+      🔥 MIAN X NIAZI
+    </h3>
 
-  <a
-    href="https://www.tiktok.com/"
-    target="_blank">
-    🎵 TikTok
-  </a>
+    Video Downloader • No Watermark • Fast
 
-  <a
-    href="https://wa.me/"
-    target="_blank">
-    💬 WhatsApp
-  </a>
-
-</div>
-
-<div class="container">
-
-  <img
-    class="photo"
-    src="https://cdn.phototourl.com/free/2026-08-29-1ed450fe-a722-47e2-bff2-bbaf6ae113fb.jpg"
-    alt="MIAN X NIAZI">
-
-</div>
-
-<div class="features">
-
-  <div class="feature">
-    <b>⚡ FAST</b>
-    <span>Fast video processing</span>
-  </div>
-
-  <div class="feature">
-    <b>📱 MOBILE</b>
-    <span>Android & iPhone support</span>
-  </div>
-
-  <div class="feature">
-    <b>🆓 FREE</b>
-    <span>No registration required</span>
   </div>
 
 </div>
 
-<footer>
-  © 2026 MIAN X NIAZI
-</footer>
-
+<img
+  class="bottom-brand-image"
+  src="https://cdn.phototourl.com/free/2026-08-29-1ed450fe-a722-47e2-bff2-bbaf6ae113fb.jpg"
+  alt="MIAN X NIAZI"
+>
 
 <script>
 
-/* =========================
-   RGB RAIN
-========================= */
+/* =====================================================
+   SETTINGS
+===================================================== */
 
-const rain =
-document.getElementById("rain");
-
-for(let i=0;i<40;i++){
-
-  let d =
-  document.createElement("div");
-
-  d.className="drop";
-
-  d.innerText=
-  "010101010101010101010101";
-
-  d.style.left=
-  Math.random()*100+"%";
-
-  d.style.animationDuration=
-  (6+Math.random()*12)+"s";
-
-  d.style.animationDelay=
-  (-Math.random()*15)+"s";
-
-  rain.appendChild(d);
-}
-
-
-/* =========================
-   VARIABLES
-========================= */
-
-let mode="tiktok";
-
-let data=null;
-
-
-/* YOUR WORKING INSTAGRAM API */
 const INSTAGRAM_API =
-"https://my-insta-api-seven.vercel.app/api/instagram?url=";
+  "https://my-insta-api-seven.vercel.app/api/instagram?url=";
+
+let currentMode = "tiktok";
+
+let videoData = {};
+
+let hdUrl = "";
+
+let instagramUrl = "";
 
 
-/* =========================
-   CHANGE MODE
-========================= */
+/* =====================================================
+   MODE SWITCH
+===================================================== */
 
-function changeMode(newMode){
+function setMode(mode){
 
-  mode=newMode;
+  currentMode = mode;
+
+  const tiktokMode =
+    document.getElementById("tiktokMode");
+
+  const instagramMode =
+    document.getElementById("instagramMode");
+
+  const headerTitle =
+    document.getElementById("headerTitle");
+
+  const inputTitle =
+    document.getElementById("inputTitle");
+
+  const urlInput =
+    document.getElementById("url");
+
+  const mainButton =
+    document.getElementById("mainDownloadBtn");
+
+  if(mode === "tiktok"){
+
+    tiktokMode.classList.add("active");
+
+    instagramMode.classList.remove("active");
+
+    headerTitle.textContent =
+      "🔥 TIKTOK VIDEO DOWNLOADER";
+
+    inputTitle.textContent =
+      "Paste TikTok Link";
+
+    urlInput.placeholder =
+      "Paste TikTok link...";
+
+  }else{
+
+    instagramMode.classList.add("active");
+
+    tiktokMode.classList.remove("active");
+
+    headerTitle.textContent =
+      "📸 INSTAGRAM VIDEO DOWNLOADER";
+
+    inputTitle.textContent =
+      "Paste Instagram Link";
+
+    urlInput.placeholder =
+      "Paste Instagram Reel/Post link...";
+
+  }
+
+  document.getElementById("url").value = "";
+
+  mainButton.classList.remove("show");
+
+  document
+    .getElementById("pastedIndicator")
+    .classList.remove("show");
 
   clearResult();
 
-  document
-  .getElementById("message")
-  .classList.remove("show");
-
-  if(newMode==="instagram"){
-
-    document
-    .getElementById("title")
-    .innerText=
-    "Instagram Video Downloader";
-
-    document
-    .getElementById("desc")
-    .innerText=
-    "Paste your Instagram Reel link below";
-
-    document
-    .getElementById("url")
-    .placeholder=
-    "Paste Instagram Reel link here...";
-
-    document
-    .getElementById("tikMode")
-    .classList.remove("active");
-
-    document
-    .getElementById("insMode")
-    .classList.add("active");
-
-  }else{
-
-    document
-    .getElementById("title")
-    .innerText=
-    "TikTok Video Downloader";
-
-    document
-    .getElementById("desc")
-    .innerText=
-    "Paste your TikTok video link below";
-
-    document
-    .getElementById("url")
-    .placeholder=
-    "Paste TikTok link here...";
-
-    document
-    .getElementById("insMode")
-    .classList.remove("active");
-
-    document
-    .getElementById("tikMode")
-    .classList.add("active");
-  }
 }
 
 
-/* =========================
-   FORM
-========================= */
+/* =====================================================
+   INPUT
+===================================================== */
 
-document
-.getElementById("form")
-.addEventListener("submit",function(e){
+function checkInput(){
 
-  e.preventDefault();
+  const url =
+    document.getElementById("url").value.trim();
 
-  const input=
-  document.getElementById("url");
+  const btn =
+    document.getElementById("mainDownloadBtn");
 
-  const url=
-  input.value.trim();
+  const indicator =
+    document.getElementById("pastedIndicator");
 
-  if(!url){
+  if(url.length > 10){
 
-    showError(
-      "❌ Pehle video link paste karo."
-    );
+    btn.classList.add("show");
 
-    return;
-  }
-
-  /*
-     INPUT KO CLEAR NAHI KARNA.
-     Link yahin rahega.
-  */
-
-  if(mode==="instagram"){
-
-    instagram(url);
+    indicator.classList.add("show");
 
   }else{
 
-    tiktok(url);
+    btn.classList.remove("show");
+
+    indicator.classList.remove("show");
 
   }
 
-});
+}
 
 
-/* =========================
-   INSTAGRAM
-========================= */
+/* =====================================================
+   PASTE
+===================================================== */
 
-async function instagram(url){
-
-  setLoading(true);
-  hideError();
+async function pasteURL(){
 
   try{
 
-    const api=
-    INSTAGRAM_API+
+    const text =
+      await navigator.clipboard.readText();
+
+    document.getElementById("url").value =
+      text;
+
+    checkInput();
+
+  }catch(e){
+
+    document.getElementById("url").focus();
+
+  }
+
+}
+
+
+/* =====================================================
+   FETCH VIDEO
+===================================================== */
+
+async function fetchVideo(){
+
+  const url =
+    document.getElementById("url").value.trim();
+
+  if(!url || url.length < 10){
+
+    alert(
+      currentMode === "instagram"
+      ? "Please paste valid Instagram link!"
+      : "Please paste valid TikTok link!"
+    );
+
+    return;
+
+  }
+
+  document
+    .getElementById("loading")
+    .style.display = "block";
+
+  document
+    .getElementById("loadingText")
+    .textContent =
+      currentMode === "instagram"
+      ? "Fetching Instagram video..."
+      : "Fetching TikTok video...";
+
+  clearResult();
+
+  try{
+
+    if(currentMode === "instagram"){
+
+      await fetchInstagram(url);
+
+    }else{
+
+      await fetchTikTok(url);
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    document
+      .getElementById("loading")
+      .style.display = "none";
+
+    alert(
+      currentMode === "instagram"
+      ? "Instagram video not found. Make sure the Reel/Post is public."
+      : "Failed to fetch TikTok video. Try another link!"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   INSTAGRAM
+===================================================== */
+
+async function fetchInstagram(url){
+
+  instagramUrl = url;
+
+  const apiUrl =
+    INSTAGRAM_API +
     encodeURIComponent(url);
 
-    const response=
-    await fetch(api);
+  const response =
+    await fetch(apiUrl);
 
-    const json=
+  const result =
     await response.json();
 
-    console.log(
-      "INSTAGRAM RESPONSE:",
-      json
+  if(
+    !response.ok ||
+    result.status !== "success" ||
+    !result.data ||
+    !result.data.url
+  ){
+
+    throw new Error(
+      result.message ||
+      "Instagram video not found"
     );
 
-    if(
-      !response.ok ||
-      json.status!=="success" ||
-      !json.data ||
-      !json.data.url
-    ){
+  }
 
-      throw new Error(
-        json.message ||
-        "Instagram video not found"
-      );
+  const data =
+    result.data;
 
-    }
+  videoData = {
 
-    data={
-      video:json.data.url,
-      hd:json.data.url,
-      mp3:"",
-      title:"Instagram Video",
-      author:"Instagram",
-      cover:json.data.thumbnail || ""
-    };
+    play: data.url,
 
+    hdplay: data.url,
 
-    const video=
+    music: "",
+
+    cover: data.thumbnail || "",
+
+    likes: 0,
+
+    shares: 0,
+
+    views: 0,
+
+    author: {},
+
+    title: "Instagram Video",
+
+    instagram: true
+
+  };
+
+  updateVideoInfo(videoData);
+
+  const video =
     document.getElementById("video");
 
-    video.pause();
+  video.src =
+    data.url;
 
-    video.src=
-    data.video;
+  video.poster =
+    data.thumbnail || "";
 
-    if(data.cover){
+  document
+    .getElementById("loading")
+    .style.display = "none";
 
-      video.poster=
-      data.cover;
-
-    }
-
-    video.load();
-
-
-    document
-    .getElementById("videoTitle")
-    .innerText=
-    data.title;
-
-    document
-    .getElementById("author")
-    .innerText=
-    data.author;
-
-
-    document
-    .getElementById("result")
+  document
+    .getElementById("videoInfo")
     .classList.add("show");
 
+  document
+    .getElementById("videoContainer")
+    .classList.add("show");
 
-    /*
-       Instagram mein MP3/HD
-       available nahi hai, isliye
-       sirf VIDEO button.
-    */
+  document
+    .getElementById("downloadOptions")
+    .classList.add("show");
 
-    document
-    .getElementById("hdBtn")
-    .style.display="none";
+  /* Instagram has no separate audio/HD URL
+     from current API */
 
-    document
-    .getElementById("mp3Btn")
-    .style.display="none";
+  document
+    .getElementById("hdButton")
+    .style.display = "none";
 
-    document
-    .getElementById("videoBtn")
-    .innerHTML=
-    "<span>⬇ INSTAGRAM VIDEO</span>";
+  document
+    .getElementById("mp3Button")
+    .style.display = "none";
 
-
-    setLoading(false);
-
-
-  }catch(error){
-
-    console.error(error);
-
-    setLoading(false);
-
-    showError(
-      "❌ Instagram video nahi mila. Public Reel link try karo."
-    );
-
-  }
+  document
+    .getElementById("videoDownloadButton")
+    .textContent = "⬇ Instagram Video";
 
 }
 
 
-/* =========================
+/* =====================================================
    TIKTOK
-========================= */
+===================================================== */
 
-async function tiktok(url){
+async function fetchTikTok(url){
 
-  setLoading(true);
-  hideError();
+  const apis = [
 
-  try{
+    `https://tikwm.com/api/?url=${encodeURIComponent(url)}`,
 
-    let response=
-    await fetch(
-      "https://tikwm.com/api/?url="+
-      encodeURIComponent(url)
-    );
+    `https://api.tiklydown.eu.org/api/download/v5?url=${encodeURIComponent(url)}`
 
-    let json=
-    await response.json();
+  ];
 
-    console.log(
-      "TIKWM:",
-      json
-    );
+  let data = null;
 
+  for(const api of apis){
 
-    if(
-      json &&
-      json.data &&
-      json.data.play
-    ){
+    try{
 
-      const x=
-      json.data;
+      const res =
+        await fetch(api);
 
-      data={
-        video:x.play,
-        hd:x.hdplay || x.play,
-        mp3:x.music || "",
-        title:x.title || "TikTok Video",
-        author:x.author?.nickname || "",
-        cover:x.cover || ""
-      };
+      const result =
+        await res.json();
 
-      showTikTokResult();
+      if(result.data || result.result){
 
-      setLoading(false);
+        data =
+          result.data ||
+          result.result;
 
-      return;
-    }
+        break;
 
+      }
 
-    /* SECOND API */
+    }catch(e){
 
-    response=
-    await fetch(
-      "https://api.tiklydown.eu.org/api/download/v5?url="+
-      encodeURIComponent(url)
-    );
-
-    json=
-    await response.json();
-
-    console.log(
-      "TIKLYDOWN:",
-      json
-    );
-
-
-    const x=
-    json.result ||
-    json.data ||
-    json;
-
-
-    const video=
-    x.play ||
-    x.video ||
-    x.videoUrl ||
-    x.noWatermark;
-
-
-    if(!video){
-
-      throw new Error(
-        "TikTok video not found"
+      console.log(
+        "API failed:",
+        api
       );
 
     }
 
+  }
 
-    data={
-      video:video,
-      hd:x.hdplay || video,
-      mp3:x.music || "",
-      title:x.title || "TikTok Video",
-      author:x.author?.nickname || "",
-      cover:x.cover || ""
-    };
+  if(!data){
 
-
-    showTikTokResult();
-
-    setLoading(false);
-
-
-  }catch(error){
-
-    console.error(error);
-
-    setLoading(false);
-
-    showError(
-      "❌ TikTok video nahi mila."
+    throw new Error(
+      "TikTok video not found"
     );
 
   }
 
-}
+  videoData = {
 
+    play:
+      data.play ||
+      data.video1 ||
+      data.video,
 
-/* =========================
-   SHOW TIKTOK
-========================= */
+    hdplay:
+      data.hdplay ||
+      data.video2 ||
+      data.video_hd ||
+      data.play,
 
-function showTikTokResult(){
+    music:
+      data.music ||
+      data.audio,
 
-  const video=
-  document.getElementById("video");
+    cover:
+      data.cover ||
+      data.thumbnail,
 
-  video.pause();
+    likes:
+      data.like ||
+      data.likes ||
+      data.digg_count ||
+      0,
 
-  video.src=
-  data.video;
+    shares:
+      data.share ||
+      data.shares ||
+      data.share_count ||
+      0,
 
-  if(data.cover){
+    views:
+      data.play_count ||
+      data.views ||
+      data.view ||
+      0,
 
-    video.poster=
-    data.cover;
+    author:
+      data.author || {},
 
-  }
+    title:
+      data.title ||
+      data.desc ||
+      "",
 
-  video.load();
+    instagram:false
 
+  };
+
+  updateVideoInfo(videoData);
+
+  const video =
+    document.getElementById("video");
+
+  video.src =
+    videoData.play || "";
+
+  video.poster =
+    videoData.cover || "";
 
   document
-  .getElementById("videoTitle")
-  .innerText=
-  data.title;
+    .getElementById("loading")
+    .style.display = "none";
 
   document
-  .getElementById("author")
-  .innerText=
-  data.author ?
-  "@"+data.author :
-  "";
-
+    .getElementById("videoInfo")
+    .classList.add("show");
 
   document
-  .getElementById("result")
-  .classList.add("show");
-
-
-  document
-  .getElementById("hdBtn")
-  .style.display=
-  "block";
-
+    .getElementById("videoContainer")
+    .classList.add("show");
 
   document
-  .getElementById("mp3Btn")
-  .style.display=
-  data.mp3 ?
-  "block" :
-  "none";
-
+    .getElementById("downloadOptions")
+    .classList.add("show");
 
   document
-  .getElementById("videoBtn")
-  .innerHTML=
-  "<span>⬇ VIDEO</span>";
-}
+    .getElementById("hdButton")
+    .style.display = "block";
 
+  document
+    .getElementById("mp3Button")
+    .style.display = "block";
 
-/* =========================
-   VIDEO BUTTON
-========================= */
-
-document
-.getElementById("videoBtn")
-.addEventListener("click",function(){
-
-  if(!data || !data.video){
-
-    showError(
-      "❌ Video available nahi."
-    );
-
-    return;
-  }
-
-  download(data.video,"mian-x-niazi-video.mp4");
-
-});
-
-
-/* =========================
-   HD BUTTON
-========================= */
-
-document
-.getElementById("hdBtn")
-.addEventListener("click",function(){
-
-  if(!data || !data.hd){
-
-    showError(
-      "❌ HD available nahi."
-    );
-
-    return;
-  }
-
-  download(data.hd,"mian-x-niazi-hd.mp4");
-
-});
-
-
-/* =========================
-   MP3 BUTTON
-========================= */
-
-document
-.getElementById("mp3Btn")
-.addEventListener("click",function(){
-
-  if(!data || !data.mp3){
-
-    showError(
-      "❌ MP3 available nahi."
-    );
-
-    return;
-  }
-
-  download(data.mp3,"mian-x-niazi.mp3");
-
-});
-
-
-/* =========================
-   DOWNLOAD
-========================= */
-
-async function download(url,filename){
-
-  /*
-     Pehle browser se actual file
-     download karne ki koshish.
-  */
-
-  try{
-
-    const response=
-    await fetch(url);
-
-    if(!response.ok){
-
-      throw new Error(
-        "Download failed"
-      );
-
-    }
-
-    const blob=
-    await response.blob();
-
-    const objectURL=
-    URL.createObjectURL(blob);
-
-    const a=
-    document.createElement("a");
-
-    a.href=
-    objectURL;
-
-    a.download=
-    filename;
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-
-    setTimeout(
-      ()=>{
-        URL.revokeObjectURL(objectURL);
-      },
-      2000
-    );
-
-
-  }catch(error){
-
-    /*
-       Agar remote server browser ko
-       direct file fetch nahi karne deta,
-       direct media URL open hoga.
-    */
-
-    const a=
-    document.createElement("a");
-
-    a.href=url;
-
-    a.target="_blank";
-
-    a.rel="noopener";
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-
-  }
+  document
+    .getElementById("videoDownloadButton")
+    .textContent = "⬇ Video";
 
 }
 
 
-/* =========================
-   LOADING
-========================= */
+/* =====================================================
+   VIDEO INFO
+===================================================== */
 
-function setLoading(show){
+function updateVideoInfo(data){
 
-  const el=
-  document.getElementById("loading");
-
-  if(show){
-
-    el.classList.add("show");
-
-  }else{
-
-    el.classList.remove("show");
-
-  }
-
-}
-
-
-/* =========================
-   ERROR
-========================= */
-
-function showError(text){
-
-  const el=
-  document.getElementById("message");
-
-  el.innerText=text;
-
-  el.classList.add("show");
-
-}
-
-function hideError(){
+  const author =
+    data.author || {};
 
   document
-  .getElementById("message")
-  .classList.remove("show");
-
-}
-
-
-/* =========================
-   CLEAR RESULT
-========================= */
-
-function clearResult(){
-
-  data=null;
-
-  const video=
-  document.getElementById("video");
-
-  video.pause();
-
-  video.removeAttribute("src");
-
-  video.removeAttribute("poster");
-
-  video.load();
-
-  document
-  .getElementById("result")
-  .classList.remove("show");
-
-  /*
-     Buttons reset
-  */
-
-  document
-  .getElementById("hdBtn")
-  .style.display="block";
-
-  document
-  .getElementById("mp3Btn")
-  .style.display="block";
-
-}
-
-</script>
-
-</body>
-  </html>
+    .getEleme
