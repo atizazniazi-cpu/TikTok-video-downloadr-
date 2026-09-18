@@ -19,12 +19,7 @@ A simple, mobile-friendly TikTok and Instagram video downloader website with an 
 ## Live Website
 
 https://my-insta-api-seven.vercel.app
-
-## API
-
-Instagram API endpoint:
-
-`https://my-insta-api-seven.vercel.app/api/instagram?url=INSTAGRAM_URL`
+`
 
 ## Project Structure
 
