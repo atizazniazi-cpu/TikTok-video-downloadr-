@@ -1,137 +1,228 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#10030a">
-<meta name="description" content="MIAN X NIAZI TikTok, Instagram and YouTube video downloader">
-<title>MIAN X NIAZI — Video Downloader</title>
+
+<!-- MIAN X NIAZI RED THEME + BANNER FIX -->
 <style>
-:root{--red:#ff1748;--pink:#ff0055;--purple:#8b2cff;--cyan:#00eaff;--ink:#0b0509;--muted:#a99aa2;--panel:#160911;--border:#48202e}
-*{box-sizing:border-box}html{min-height:100%;background:#090307}body{margin:0;min-height:100vh;color:#fff;font-family:Inter,Arial,sans-serif;background:radial-gradient(ellipse at 10% 0%,#4b071b 0,transparent 34%),radial-gradient(ellipse at 95% 70%,#240746 0,transparent 35%),#090307;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:-40%;pointer-events:none;z-index:0;background:conic-gradient(from 20deg,#ff1748,#7b2cff,#00eaff,#00ff9d,#ff1748);filter:blur(110px);opacity:.1;animation:glow 20s linear infinite}@keyframes glow{to{transform:rotate(360deg)}}
-main,.site-footer{position:relative;z-index:1}.shell{width:min(660px,100% - 28px);margin:auto}.header{text-align:center;padding:27px 0 15px}.logo{font-size:clamp(25px,5vw,35px);font-weight:1000;letter-spacing:2.5px;text-shadow:0 0 20px #ff174866}.logo em{font-style:normal;color:#ff4167}.subtitle{margin-top:7px;color:#b8aab1;font-size:11px;letter-spacing:2px;text-transform:uppercase}.rgb-line{height:3px;border-radius:9px;background:linear-gradient(90deg,#ff1748,#ffb000,#00eaff,#9c36ff,#ff1748);background-size:300% 100%;animation:rainbow 4s linear infinite;box-shadow:0 0 15px #ff174844;margin:8px 0 19px}@keyframes rainbow{to{background-position:300% 0}}
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 13px}.mode{border:1px solid #49202e;background:#170912;color:#e8dce1;border-radius:12px;min-height:43px;font-weight:800;font-size:12px;cursor:pointer;transition:.2s}.mode.active{background:linear-gradient(110deg,#ff1748,#7c20d7);border-color:transparent;color:white;box-shadow:0 5px 22px #ff17482a}.card{border:1px solid #512333;border-radius:21px;background:linear-gradient(145deg,rgba(27,10,18,.97),rgba(12,5,10,.97));padding:clamp(15px,4vw,24px);box-shadow:0 20px 65px #0008}.eyebrow{text-align:center;color:#ff7993;font-size:10px;font-weight:900;letter-spacing:1.6px;margin:0 0 12px}.title{text-align:center;font-size:clamp(21px,5vw,27px);font-weight:900;margin:0 0 6px}.desc{text-align:center;color:var(--muted);font-size:12px;margin:0 0 20px}.label{display:block;color:#d5c4cc;font-size:10px;font-weight:800;letter-spacing:1.5px;margin:0 0 8px}.input-row{display:flex;gap:8px}.url-input{width:100%;min-width:0;height:47px;border:1px solid #583040;border-radius:11px;background:#090408;color:#fff;padding:0 13px;font-size:13px;outline:none}.url-input:focus{border-color:#ff4167;box-shadow:0 0 0 3px #ff17481b}.url-input::placeholder{color:#83717a}.tiny{flex:0 0 auto;border:1px solid #563040;border-radius:10px;background:#28111c;color:#fff;font-size:10px;font-weight:900;padding:0 12px;cursor:pointer}.primary,.download-action{width:100%;min-height:46px;border:0;border-radius:11px;background:linear-gradient(110deg,#ff1748,#bd063d 55%,#7724cf);color:#fff;font-size:12px;font-weight:900;letter-spacing:.5px;cursor:pointer;box-shadow:0 7px 22px #ff17482b;transition:transform .2s,filter .2s}.primary{margin-top:10px}.primary:hover,.download-action:hover{filter:brightness(1.12);transform:translateY(-1px)}button:disabled{opacity:.55;cursor:wait;transform:none!important}.quality{display:none;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:13px}.quality.show{display:grid}.q{height:38px;border:1px solid #53303e;border-radius:9px;background:#10070c;color:#cdbfc5;font-weight:900;font-size:11px;cursor:pointer}.q.active{background:#4b1023;border-color:#ff4167;color:#fff;box-shadow:inset 0 0 14px #ff17481c}.notice{display:none;padding:10px;border-radius:10px;margin-top:12px;font-size:12px;line-height:1.5;text-align:center}.notice.show{display:block}.notice.error{color:#ffb4c2;background:#4b101e}.notice.ok{color:#a8ffd0;background:#0b3522}.spinner{display:none;text-align:center;color:#d9b7ff;font-size:12px;padding:14px 0 0}.spinner.show{display:block}.progress{height:5px;background:#2b111c;border-radius:8px;overflow:hidden;margin-top:10px;display:none}.progress.show{display:block}.progress>div{height:100%;width:0;background:linear-gradient(90deg,#ff1748,#ffb000,#00eaff,#9c36ff);transition:width .15s}.result{display:none;margin-top:18px;border-top:1px solid #43202e;padding-top:17px}.result.show{display:block}.preview{width:100%;max-height:340px;aspect-ratio:16/9;object-fit:contain;background:#030203;border-radius:12px;display:block}.video-title{font-weight:800;font-size:14px;margin:12px 1px 4px;overflow-wrap:anywhere}.author{color:#a99aa2;font-size:11px;margin:0 1px 12px}.download-action{display:block;margin-top:8px;text-decoration:none;text-align:center;padding:15px 10px;min-height:46px}.secondary{display:block;width:100%;border:1px solid #573040;border-radius:10px;background:#1a0b13;color:#e9d9e0;min-height:41px;margin-top:8px;font-size:11px;font-weight:800;cursor:pointer}.promo{margin-top:16px;border:1px solid #492333;background:#130811;border-radius:15px;padding:10px;overflow:hidden}.promo img{display:block;width:100%;height:auto;max-height:190px;object-fit:contain;border-radius:9px}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.feature{text-align:center;border:1px solid #3b202b;background:#150a11;border-radius:12px;padding:13px 5px}.feature strong{display:block;font-size:11px}.feature span{display:block;color:#a99aa2;font-size:10px;margin-top:5px}.social{display:flex;justify-content:center;gap:9px;margin:16px 0}.social a{border:1px solid #48202e;background:#190a12;color:white;border-radius:22px;padding:9px 15px;text-decoration:none;font-size:11px;font-weight:800}.site-footer{text-align:center;padding:5px 12px 22px;color:#81717a;font-size:10px;letter-spacing:1px}.smallprint{text-align:center;color:#82727b;font-size:10px;line-height:1.6;margin:12px 0 0}
-@media(min-width:700px){.header{padding-top:38px}.card{padding:25px}.url-input{height:50px}.primary{min-height:49px}}
-@media(max-width:380px){.shell{width:calc(100% - 18px)}.header{padding-top:22px}.modes{gap:5px}.mode{font-size:11px}.input-row{gap:5px}.tiny{padding:0 8px}.quality{gap:5px}.card{border-radius:17px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+body {
+  background:
+    radial-gradient(ellipse at 10% 5%, #38202d, transparent 45%),
+    radial-gradient(ellipse at 95% 90%, #350b35, transparent 48%),
+    linear-gradient(135deg, #080609, #10121e 60%, #180819) !important;
+  color: #fff !important;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 36px 12px 10px !important;
+}
+
+.logo {
+  color: #fff !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  letter-spacing: 2px;
+  animation: none !important;
+  text-shadow: 0 0 15px #ff285d55;
+}
+
+.subtitle {
+  color: #c0aeb9 !important;
+  letter-spacing: 2px;
+  font-size: 10px !important;
+}
+
+.mode {
+  max-width: 565px;
+  margin: 18px auto 12px !important;
+  gap: 7px !important;
+}
+
+.mode button {
+  flex: 1;
+  padding: 12px 5px !important;
+  border: 1px solid #48202f !important;
+  border-radius: 11px !important;
+  background: #130a11 !important;
+  color: #fff !important;
+}
+
+.mode button.active {
+  background: linear-gradient(105deg, #ff174f, #9225d5) !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 18px #ff174f22;
+  animation: none !important;
+}
+
+.container {
+  max-width: 565px !important;
+}
+
+.box {
+  background: rgba(17, 7, 15, .97) !important;
+  border: 1px solid #512033 !important;
+  border-radius: 20px !important;
+  color: #fff !important;
+  padding: 24px 21px !important;
+  box-shadow: none !important;
+}
+
+.box::before {
+  display: none !important;
+}
+
+.title {
+  color: #fff !important;
+  font-size: 24px !important;
+}
+
+.desc {
+  color: #b9aab4 !important;
+}
+
+label {
+  color: #d9c4d0 !important;
+}
+
+input {
+  background: #090609 !important;
+  color: #fff !important;
+  border: 1px solid #512033 !important;
+  border-radius: 10px !important;
+}
+
+input::placeholder {
+  color: #887984 !important;
+}
+
+.smallBtn {
+  background: #21101b !important;
+  color: #fff !important;
+  border: 1px solid #512033 !important;
+  border-radius: 9px !important;
+}
+
+.downloadBtn,
+.downloadBtn.show {
+  background: linear-gradient(100deg, #ff174f, #8d26d5) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 11px !important;
+  box-shadow: 0 7px 20px #ff174f20;
+}
+
+.features {
+  max-width: 565px;
+  margin: 12px auto !important;
+  gap: 7px !important;
+}
+
+.feature {
+  flex: 1;
+  background: #130a11 !important;
+  border: 1px solid #48202f !important;
+  border-radius: 11px !important;
+  color: #fff !important;
+  padding: 15px 5px !important;
+}
+
+.feature span {
+  color: #b9aab4 !important;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.social a {
+  background: #170a14 !important;
+  color: #fff !important;
+  border: 1px solid #512033 !important;
+  border-radius: 25px !important;
+}
+
+footer {
+  color: #9c8998 !important;
+}
+
+#niaziBanner {
+  max-width: 565px;
+  width: calc(100% - 24px);
+  margin: 12px auto;
+  padding: 2px;
+  border-radius: 13px;
+  background: linear-gradient(100deg, #ff174f, #8d26d5);
+}
+
+#niaziBanner .inner {
+  background: #130a11;
+  border-radius: 11px;
+  text-align: center;
+  padding: 17px 8px;
+}
+
+#niaziBanner .brand {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+#niaziBanner .brand span {
+  color: #ff386b;
+}
+
+#niaziBanner .tag {
+  color: #c5aebb;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 7px;
+}
+
+@media (max-width: 480px) {
+  header { padding-top: 25px !important; }
+  .logo { font-size: 25px !important; }
+  .box { padding: 20px 13px !important; }
+  .title { font-size: 21px !important; }
+  .mode button { font-size: 10px; padding: 11px 3px !important; }
+  .features { width: calc(100% - 24px); }
+}
 </style>
-</head>
-<body>
-<main>
-  <header class="header shell"><div class="logo">MIAN X <em>NIAZI</em></div><div class="subtitle">Fast • Simple • Mobile Friendly</div></header>
-  <div class="shell"><div class="rgb-line"></div>
-    <nav class="modes" aria-label="Downloader type">
-      <button class="mode active" data-mode="tiktok">♪ TikTok</button>
-      <button class="mode" data-mode="instagram">▣ Instagram</button>
-      <button class="mode" data-mode="youtube">▶ YouTube</button>
-    </nav>
-    <section class="card">
-      <p class="eyebrow" id="eyebrow">TIKTOK VIDEO DOWNLOADER</p>
-      <h1 class="title" id="title">TikTok Downloader</h1>
-      <p class="desc" id="desc">Paste a public TikTok video link below.</p>
-      <label class="label" for="url">VIDEO LINK</label>
-      <div class="input-row"><input class="url-input" id="url" type="url" autocomplete="url" placeholder="Paste TikTok link here…"><button class="tiny" id="paste">PASTE</button><button class="tiny" id="clear">CLEAR</button></div>
-      <div id="quality" class="quality" aria-label="YouTube quality">
-        <button class="q" data-quality="360">360P</button><button class="q" data-quality="480">480P</button><button class="q active" data-quality="720">720P</button><button class="q" data-quality="1080">1080P</button>
-      </div>
-      <button class="primary" id="go">GET VIDEO</button>
-      <div class="notice" id="notice" role="status"></div>
-      <div class="spinner" id="spinner">⚡ Contacting video provider…</div><div class="progress" id="progress"><div id="progressFill"></div></div>
-      <div class="result" id="result">
-        <video id="player" class="preview" controls playsinline preload="metadata"></video>
-        <div class="video-title" id="videoTitle">Video ready</div><p class="author" id="author"></p>
-        <button class="download-action" id="download">⬇ DOWNLOAD VIDEO</button>
-        <button class="secondary" id="hd" hidden>⚡ DOWNLOAD HD</button>
-        <button class="secondary" id="mp3" hidden>♫ DOWNLOAD MP3</button>
-        <p class="smallprint" id="downloadHint">Tap the download button to save the file. Availability depends on the source provider.</p>
-      </div>
-    </section>
-    <section class="promo"><img id="brandImage" src="https://cdn.phototourl.com/free/2026-09-18-3c8925d4-2f2c-43ed-b72c-b04cb29ef866.png" alt="MIAN X NIAZI banner" loading="lazy"></section>
-    <section class="features"><div class="feature"><strong>⚡ QUICK</strong><span>Simple process</span></div><div class="feature"><strong>📱 RESPONSIVE</strong><span>Phone & PC</span></div><div class="feature"><strong>🆓 FREE</strong><span>No account needed</span></div></section>
-    <div class="social"><a href="https://www.tiktok.com/@niazimd2" target="_blank" rel="noopener noreferrer">♪ TikTok</a><a href="https://wa.me/923220225993" target="_blank" rel="noopener noreferrer">☏ WhatsApp</a></div>
-  </div>
-</main>
-<footer class="site-footer">© 2026 MIAN X NIAZI · NIAZI-MD</footer>
+
 <script>
-(() => {
-  const $ = id => document.getElementById(id);
-  const state = { mode: 'tiktok', quality: '720', data: null };
-  const API = {
-    instagram: 'https://my-insta-api-seven.vercel.app/api/instagram?url=',
-    youtube: 'https://apis.davidcyriltech.my.id'
-  };
-  const modes = {
-    tiktok: { eyebrow: 'TIKTOK VIDEO DOWNLOADER', title: 'TikTok Downloader', desc: 'Paste a public TikTok video link below.', placeholder: 'Paste TikTok link here…' },
-    instagram: { eyebrow: 'INSTAGRAM VIDEO DOWNLOADER', title: 'Instagram Downloader', desc: 'Paste a public Instagram Reel or video link.', placeholder: 'Paste Instagram link here…' },
-    youtube: { eyebrow: 'YOUTUBE VIDEO DOWNLOADER', title: 'YouTube Downloader', desc: 'Paste a YouTube video link and choose quality.', placeholder: 'Paste YouTube link here…' }
-  };
-  function showNotice(text, type='error') { $('notice').textContent = text; $('notice').className = 'notice show ' + type; }
-  function hideNotice() { $('notice').className = 'notice'; }
-  function loading(on) { $('spinner').classList.toggle('show', on); $('go').disabled = on; $('go').textContent = on ? 'PLEASE WAIT…' : (state.mode === 'youtube' ? 'GET YOUTUBE VIDEO' : 'GET VIDEO'); }
-  function clearResult() { state.data = null; const v=$('player'); v.pause(); v.removeAttribute('src'); v.removeAttribute('poster'); v.load(); $('result').classList.remove('show'); $('progress').classList.remove('show'); $('progressFill').style.width='0%'; $('hd').hidden=true; $('mp3').hidden=true; }
-  function changeMode(mode) { state.mode=mode; document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active', b.dataset.mode===mode)); const m=modes[mode]; $('eyebrow').textContent=m.eyebrow; $('title').textContent=m.title; $('desc').textContent=m.desc; $('url').placeholder=m.placeholder; $('quality').classList.toggle('show',mode==='youtube'); $('url').value=''; hideNotice(); clearResult(); }
-  document.querySelectorAll('.mode').forEach(b=>b.addEventListener('click',()=>changeMode(b.dataset.mode)));
-  document.querySelectorAll('.q').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.q').forEach(q=>q.classList.toggle('active',q===b));state.quality=b.dataset.quality;}));
-  $('clear').addEventListener('click',()=>{ $('url').value=''; hideNotice(); clearResult(); $('url').focus(); });
-  $('paste').addEventListener('click',async()=>{try{$('url').value=await navigator.clipboard.readText();hideNotice();$('url').focus();}catch{showNotice('Clipboard access block hai. Link ko copy karke input mein long-press/paste karo.');}});
-  function validForMode(url) { try { const h=new URL(url).hostname.toLowerCase(); if(state.mode==='tiktok')return h==='tiktok.com'||h.endsWith('.tiktok.com'); if(state.mode==='instagram')return h==='instagram.com'||h.endsWith('.instagram.com'); return h==='youtu.be'||h.endsWith('.youtube.com')||h==='youtube.com'; } catch{return false;} }
-  async function getTikTok(url) {
-    let r=await fetch('https://tikwm.com/api/?url='+encodeURIComponent(url)); let j=await r.json();
-    if(j?.data?.play) { const x=j.data; return {video:x.play,hd:x.hdplay||x.play,mp3:x.music||'',title:x.title||'TikTok Video',author:x.author?.nickname||'',cover:x.cover||''}; }
-    r=await fetch('https://api.tiklydown.eu.org/api/download/v5?url='+encodeURIComponent(url)); j=await r.json(); const x=j.result||j.data||j; const video=x.play||x.video||x.videoUrl||x.noWatermark;
-    if(!video)throw new Error('TikTok provider ne video link nahi diya. Baad mein dobara try karo.');
-    return {video,hd:x.hdplay||video,mp3:x.music||'',title:x.title||'TikTok Video',author:x.author?.nickname||'',cover:x.cover||''};
-  }
-  async function getInstagram(url) {
-    const r=await fetch(API.instagram+encodeURIComponent(url)); const j=await r.json();
-    if(!r.ok||j.status!=='success'||!j.data?.url)throw new Error(j.message||'Instagram provider se video nahi mila.');
-    return {video:j.data.url,hd:j.data.url,mp3:'',title:'Instagram Video',author:'Instagram',cover:j.data.thumbnail||''};
-  }
-  async function getYouTube(url) {
-    const r=await fetch(API.youtube+'/download/savetube?url='+encodeURIComponent(url)+'&format='+encodeURIComponent(state.quality));
-    const j=await r.json(); if(!r.ok||!j?.success||!j?.data?.download_url)throw new Error(j?.message||'YouTube provider ne download link nahi diya.');
-    const id=(()=>{try{const u=new URL(url);return u.hostname==='youtu.be'?u.pathname.split('/')[1]:u.searchParams.get('v')||u.pathname.match(/\/(?:shorts|embed)\/([^/?]+)/)?.[1]||'';}catch{return '';}})();
-    return {video:j.data.download_url,hd:j.data.download_url,mp3:'',title:'YouTube Video ('+state.quality+'P)',author:'YouTube',cover:id?'https://i.ytimg.com/vi/'+encodeURIComponent(id)+'/hqdefault.jpg':''};
-  }
-  function showResult(d) {
-    state.data=d; const v=$('player'); v.src=d.video;
-    if(d.cover) v.poster=d.cover; else v.removeAttribute('poster');
-    v.load(); $('videoTitle').textContent=d.title||'Video ready'; $('author').textContent=d.author?(d.author.startsWith('@')?d.author:'@'+d.author):'';
-    $('result').classList.add('show'); $('hd').hidden=!(d.hd&&d.hd!==d.video); $('mp3').hidden=!d.mp3;
-    $('download').textContent=state.mode==='youtube'?'⬇ DOWNLOAD '+state.quality+'P VIDEO':'⬇ DOWNLOAD VIDEO';
-    $('result').scrollIntoView({behavior:'smooth',block:'nearest'});
-  }
-  $('go').addEventListener('click',async()=>{
-    const url=$('url').value.trim(); hideNotice(); clearResult();
-    if(!validForMode(url)){showNotice('Is tab ka valid public video link paste karo.');return;}
-    loading(true);
-    try { let d; if(state.mode==='tiktok')d=await getTikTok(url); else if(state.mode==='instagram')d=await getInstagram(url); else d=await getYouTube(url); showResult(d); showNotice('Video link mil gaya. Download Video button dabao.','ok'); }
-    catch(e){console.error(e);showNotice(e instanceof Error?e.message:'Video fetch nahi ho saka. Provider baad mein try karo.');}
-    finally{loading(false);}
+document.addEventListener("DOMContentLoaded", function () {
+  // Broken external banner ko hata kar built-in banner lagao
+  document.querySelectorAll("img").forEach(function (img) {
+    const text = (
+      (img.alt || "") + " " +
+      (img.src || "")
+    ).toLowerCase();
+
+    if (text.includes("banner")) {
+      const banner = document.createElement("div");
+      banner.id = "niaziBanner";
+      banner.innerHTML = `
+        <div class="inner">
+          <div class="brand">MIAN X <span>NIAZI</span></div>
+          <div class="tag">FAST • SIMPLE • MOBILE FRIENDLY</div>
+        </div>`;
+      img.replaceWith(banner);
+    }
   });
-  async function downloadMedia(url, filename) {
-    if(!url)return;
-    const btn=$('download'); btn.disabled=true; btn.textContent='PREPARING DOWNLOAD…';
-    try {
-      // Blob download works when the provider permits cross-origin requests.
-      const r=await fetch(url,{mode:'cors'}); if(!r.ok)throw new Error('File request failed');
-      const blob=await r.blob(); if(!blob.size)throw new Error('Empty file');
-      const objectUrl=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=objectUrl; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(objectUrl),60000);
-      showNotice('Download start ho gaya.','ok');
-    } catch {
-      // CORS-restricted providers cannot be forced to download from a static GitHub Pages site.
-      const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener noreferrer'; a.click();
-      showNotice('Provider link khul gaya. Agar file auto-save na ho to browser ke video menu se Download/Save use karo.','ok');
-    } finally { btn.disabled=false; btn.textContent=state.mode==='youtube'?'⬇ DOWNLOAD '+state.quality+'P VIDEO':'⬇ DOWNLOAD VIDEO'; }
+
+  // Agar banner image maujood hi nahi, to khud add kar do
+  if (!document.getElementById("niaziBanner")) {
+    const banner = document.createElement("div");
+    banner.id = "niaziBanner";
+    banner.innerHTML = `
+      <div class="inner">
+        <div class="brand">MIAN X <span>NIAZI</span></div>
+        <div class="tag">FAST • SIMPLE • MOBILE FRIENDLY</div>
+      </div>`;
+
+    const container = document.querySelector(".container");
+    if (container) container.after(banner);
   }
-  $('download').addEventListener('click',()=>state.data&&downloadMedia(state.data.video,'MIAN-X-NIAZI-'+state.mode+'-video.mp4'));
-  $('hd').addEventListener('click',()=>state.data&&downloadMedia(state.data.hd,'MIAN-X-NIAZI-HD.mp4'));
-  $('mp3').addEventListener('click',()=>state.data&&downloadMedia(state.data.mp3,'MIAN-X-NIAZI-audio.mp3'));
-  $('url').addEventListener('keydown',e=>{if(e.key==='Enter')$('go').click();});
-  // Keep the supplied banner URL, but use a bundled local fallback if that host is unavailable.
-  $('brandImage').addEventListener('error',function(){if(!this.dataset.fallback){this.dataset.fallback='1';this.src='./assets/niazi-banner.svg';}});
-})();
+});
 </script>
 </body>
 </html>
