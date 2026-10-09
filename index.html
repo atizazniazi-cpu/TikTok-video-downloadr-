@@ -542,6 +542,25 @@ footer{
 .progressTrack{height:8px;width:100%;background:#2b1726;border:1px solid #512033;border-radius:99px;overflow:hidden}
 .progressFill{height:100%;width:0%;background:linear-gradient(90deg,#ff174f,#9225d5);transition:width .15s linear}
 .progressText{font-size:11px;color:#d8c5d1;margin-top:7px;text-align:center}
+
+/* RESTORE RED / PURPLE DARK DESIGN */
+body{background:radial-gradient(ellipse at 10% 5%,#38202d,transparent 45%),radial-gradient(ellipse at 95% 90%,#350b35,transparent 48%),linear-gradient(135deg,#080609,#10121e 60%,#180819)!important;color:#fff!important}
+.subtitle,.desc{color:#c0aeb9!important}
+.mode button{background:#130a11!important;color:#fff!important;border:1px solid #48202f!important}
+.mode button.active{background:linear-gradient(105deg,#ff174f,#9225d5)!important;border-color:transparent!important;animation:none!important}
+.box{background:rgba(17,7,15,.97)!important;border:1px solid #512033!important;border-radius:20px!important;color:#fff!important;box-shadow:none!important}
+.box::before{background:linear-gradient(100deg,#ff174f,#9225d5)!important;animation:none!important}
+.title{color:#fff!important}.desc{color:#c0aeb9!important}
+input{background:#090609!important;color:#fff!important;border:1px solid #512033!important}
+input::placeholder{color:#887984!important}
+.smallBtn,.paste-btn{background:#21101b!important;color:#fff!important;border:1px solid #512033!important}
+.downloadBtn,.download-btn,.actionBtn{background:linear-gradient(100deg,#ff174f,#8d26d5)!important;color:#fff!important;border:0!important}
+.feature{background:#130a11!important;border:1px solid #48202f!important;color:#fff!important}
+.feature span,.feature small{color:#c0aeb9!important}
+footer{color:#b9aab4!important}
+#downloadProgress{background:#130a11!important;border-color:#512033!important}
+@media(max-width:600px){.mode{gap:5px!important}.mode button{padding:10px 7px!important;font-size:10px!important}.box{padding:17px!important}}
+
 </style>
 </head>
 
@@ -1427,9 +1446,22 @@ async function downloadFile(url,filename){
   const box=document.getElementById('downloadProgress');
   const fill=document.getElementById('progressFill');
   const text=document.getElementById('progressText');
-  box.classList.add('show'); fill.style.width='0%'; text.textContent='Connecting to video server…';
+  box.classList.add('show'); fill.style.width='0%';
+  // Mobile browsers often block cross-origin fetch/blob downloads. Open the provider URL directly instead of waiting for a doomed fetch.
+  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && innerWidth < 900);
+  if(isMobile){
+    text.textContent='Opening video download… If it plays instead, use the video player menu to Download/Save.';
+    fill.style.width='35%';
+    const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener'; a.download=filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    return;
+  }
+  text.textContent='Connecting to video server…';
   try{
-    const response=await fetch(url);
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),20000);
+    let response;
+    try{response=await fetch(url,{signal:controller.signal,mode:'cors'});}finally{clearTimeout(timeout);}
     if(!response.ok) throw new Error('HTTP '+response.status);
     const total=Number(response.headers.get('content-length'))||0;
     if(!response.body || !response.body.getReader){
@@ -1444,8 +1476,8 @@ async function downloadFile(url,filename){
     const blob=new Blob(chunks,{type:response.headers.get('content-type')||'video/mp4'});
     saveBlob(blob,filename); fill.style.width='100%'; text.textContent='100% — Download ready';
   }catch(error){
-    text.textContent='Browser ne direct download block ki. Video link khol rahe hain…';
-    const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.click();
+    text.textContent='Direct download browser ne block ki. Video link nayi tab mein khol rahe hain…';
+    const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
   }
 }
 function saveBlob(blob,filename){
