@@ -1,227 +1,305 @@
 
-<!-- MIAN X NIAZI RED THEME + BANNER FIX -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIAN X NIAZI — Video Downloader</title>
+<meta name="theme-color" content="#100810">
 <style>
-body {
-  background:
-    radial-gradient(ellipse at 10% 5%, #38202d, transparent 45%),
-    radial-gradient(ellipse at 95% 90%, #350b35, transparent 48%),
-    linear-gradient(135deg, #080609, #10121e 60%, #180819) !important;
-  color: #fff !important;
-  font-family: Arial, sans-serif;
+*{box-sizing:border-box}
+:root{--red:#ff174f;--purple:#9225d5;--card:#130a11;--border:#48202f}
+body{
+ margin:0;min-height:100vh;color:#fff;font-family:Arial,sans-serif;
+ background:radial-gradient(ellipse at 10% 5%,#38202d,transparent 45%),
+ radial-gradient(ellipse at 95% 90%,#350b35,transparent 48%),
+ linear-gradient(135deg,#080609,#10121e 60%,#180819);
 }
-
-header {
-  text-align: center;
-  padding: 36px 12px 10px !important;
-}
-
-.logo {
-  color: #fff !important;
-  font-size: 30px !important;
-  font-weight: 900 !important;
-  letter-spacing: 2px;
-  animation: none !important;
-  text-shadow: 0 0 15px #ff285d55;
-}
-
-.subtitle {
-  color: #c0aeb9 !important;
-  letter-spacing: 2px;
-  font-size: 10px !important;
-}
-
-.mode {
-  max-width: 565px;
-  margin: 18px auto 12px !important;
-  gap: 7px !important;
-}
-
-.mode button {
-  flex: 1;
-  padding: 12px 5px !important;
-  border: 1px solid #48202f !important;
-  border-radius: 11px !important;
-  background: #130a11 !important;
-  color: #fff !important;
-}
-
-.mode button.active {
-  background: linear-gradient(105deg, #ff174f, #9225d5) !important;
-  border-color: transparent !important;
-  box-shadow: 0 0 18px #ff174f22;
-  animation: none !important;
-}
-
-.container {
-  max-width: 565px !important;
-}
-
-.box {
-  background: rgba(17, 7, 15, .97) !important;
-  border: 1px solid #512033 !important;
-  border-radius: 20px !important;
-  color: #fff !important;
-  padding: 24px 21px !important;
-  box-shadow: none !important;
-}
-
-.box::before {
-  display: none !important;
-}
-
-.title {
-  color: #fff !important;
-  font-size: 24px !important;
-}
-
-.desc {
-  color: #b9aab4 !important;
-}
-
-label {
-  color: #d9c4d0 !important;
-}
-
-input {
-  background: #090609 !important;
-  color: #fff !important;
-  border: 1px solid #512033 !important;
-  border-radius: 10px !important;
-}
-
-input::placeholder {
-  color: #887984 !important;
-}
-
-.smallBtn {
-  background: #21101b !important;
-  color: #fff !important;
-  border: 1px solid #512033 !important;
-  border-radius: 9px !important;
-}
-
-.downloadBtn,
-.downloadBtn.show {
-  background: linear-gradient(100deg, #ff174f, #8d26d5) !important;
-  color: #fff !important;
-  border: 0 !important;
-  border-radius: 11px !important;
-  box-shadow: 0 7px 20px #ff174f20;
-}
-
-.features {
-  max-width: 565px;
-  margin: 12px auto !important;
-  gap: 7px !important;
-}
-
-.feature {
-  flex: 1;
-  background: #130a11 !important;
-  border: 1px solid #48202f !important;
-  border-radius: 11px !important;
-  color: #fff !important;
-  padding: 15px 5px !important;
-}
-
-.feature span {
-  color: #b9aab4 !important;
-}
-
-.social {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-
-.social a {
-  background: #170a14 !important;
-  color: #fff !important;
-  border: 1px solid #512033 !important;
-  border-radius: 25px !important;
-}
-
-footer {
-  color: #9c8998 !important;
-}
-
-#niaziBanner {
-  max-width: 565px;
-  width: calc(100% - 24px);
-  margin: 12px auto;
-  padding: 2px;
-  border-radius: 13px;
-  background: linear-gradient(100deg, #ff174f, #8d26d5);
-}
-
-#niaziBanner .inner {
-  background: #130a11;
-  border-radius: 11px;
-  text-align: center;
-  padding: 17px 8px;
-}
-
-#niaziBanner .brand {
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-#niaziBanner .brand span {
-  color: #ff386b;
-}
-
-#niaziBanner .tag {
-  color: #c5aebb;
-  font-size: 10px;
-  letter-spacing: 2px;
-  margin-top: 7px;
-}
-
-@media (max-width: 480px) {
-  header { padding-top: 25px !important; }
-  .logo { font-size: 25px !important; }
-  .box { padding: 20px 13px !important; }
-  .title { font-size: 21px !important; }
-  .mode button { font-size: 10px; padding: 11px 3px !important; }
-  .features { width: calc(100% - 24px); }
-}
+header{text-align:center;padding:38px 12px 18px}
+.logo{font-size:30px;font-weight:900;letter-spacing:2px}
+.logo span{color:#ff386b}
+.subtitle{font-size:10px;letter-spacing:2px;color:#c0aeb9;margin-top:9px}
+.line{height:2px;max-width:565px;margin:0 auto 16px;background:linear-gradient(90deg,#9225d5,#ff174f)}
+main{width:calc(100% - 24px);max-width:565px;margin:auto}
+.tabs{display:flex;gap:7px;margin-bottom:12px}
+.tab{flex:1;padding:12px 4px;border:1px solid var(--border);border-radius:11px;background:#130a11;color:#fff;font-weight:bold;font-size:11px;cursor:pointer}
+.tab.active{background:linear-gradient(105deg,#ff174f,#9225d5);border-color:transparent}
+.card{background:rgba(17,7,15,.97);border:1px solid #512033;border-radius:20px;padding:24px 21px 22px}
+.eyebrow{text-align:center;color:#ff7898;font-weight:bold;font-size:10px;letter-spacing:1.5px}
+h1{text-align:center;font-size:24px;margin:15px 0 8px}
+.desc{text-align:center;color:#b9aab4;font-size:12px;margin:0 0 24px}
+label{display:block;font-size:10px;letter-spacing:1px;font-weight:bold;color:#d9c4d0;margin-bottom:8px}
+.inputrow{display:flex;gap:7px}
+input{width:100%;min-width:0;background:#090609;color:#fff;border:1px solid #512033;border-radius:10px;padding:14px 12px;font-size:13px;outline:none}
+input:focus{border-color:#ff285d}
+input::placeholder{color:#887984}
+.smallbtn{padding:0 12px;background:#21101b;color:#fff;border:1px solid #512033;border-radius:9px;font-size:10px;font-weight:bold;cursor:pointer}
+.download{width:100%;margin-top:9px;padding:14px;border:0;border-radius:11px;background:linear-gradient(100deg,#ff174f,#8d26d5);color:white;font-size:12px;font-weight:900;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
+.status{display:none;margin-top:15px;padding:12px;border:1px solid #48202f;border-radius:10px;background:#0b080d;color:#e9dce5;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.status a{color:#ff7898;font-weight:bold}
+.banner{margin:12px 0;padding:2px;border-radius:13px;background:linear-gradient(100deg,#ff174f,#8d26d5)}
+.bannerinner{background:#130a11;border-radius:11px;text-align:center;padding:18px 8px}
+.bannerbrand{font-size:22px;font-weight:900;letter-spacing:2px}
+.bannerbrand span{color:#ff386b}
+.bannertag{color:#c5aebb;font-size:10px;letter-spacing:2px;margin-top:7px}
+.features{display:flex;gap:7px;margin:12px 0}
+.feature{flex:1;text-align:center;background:#130a11;border:1px solid var(--border);border-radius:11px;padding:15px 4px;font-size:11px;font-weight:bold}
+.feature small{display:block;color:#b9aab4;font-size:10px;font-weight:normal;margin-top:5px}
+.social{display:flex;justify-content:center;gap:8px;margin:15px 0}
+.social a{color:#fff;text-decoration:none;background:#170a14;border:1px solid #512033;border-radius:25px;padding:9px 15px;font-size:11px;font-weight:bold}
+footer{text-align:center;color:#8e7b8a;font-size:10px;padding:4px 10px 24px}
+@media(max-width:420px){header{padding-top:27px}.logo{font-size:25px}.card{padding:20px 13px}h1{font-size:21px}.tab{font-size:10px}.smallbtn{padding:0 9px}.features{gap:5px}.feature{font-size:10px}}
 </style>
+</head>
+<body>
+<header>
+  <div class="logo">MIAN X <span>NIAZI</span></div>
+  <div class="subtitle">FAST • SIMPLE • MOBILE FRIENDLY</div>
+</header>
+<div class="line"></div>
+
+<main>
+  <nav class="tabs">
+    <button class="tab active" data-mode="tiktok">♪ TikTok</button>
+    <button class="tab" data-mode="instagram">▣ Instagram</button>
+    <button class="tab" data-mode="youtube">▶ YouTube</button>
+  </nav>
+
+  <section class="card">
+    <div class="eyebrow" id="eyebrow">TIKTOK VIDEO DOWNLOADER</div>
+    <h1 id="heading">TikTok Downloader</h1>
+    <p class="desc" id="desc">Paste a public TikTok video link below.</p>
+
+    <label for="videoUrl">VIDEO LINK</label>
+    <div class="inputrow">
+      <input id="videoUrl" type="url" placeholder="Paste TikTok link here..." autocomplete="url">
+      <button class="smallbtn" id="pasteBtn" type="button">PASTE</button>
+      <button class="smallbtn" id="clearBtn" type="button">CLEAR</button>
+    </div>
+    <button class="download" id="downloadBtn" type="button">GET TIKTOK VIDEO</button>
+    <div class="status" id="status" role="status"></div>
+  </section>
+
+  <div class="banner">
+    <div class="bannerinner">
+      <div class="bannerbrand">MIAN X <span>NIAZI</span></div>
+      <div class="bannertag">FAST • SIMPLE • MOBILE FRIENDLY</div>
+    </div>
+  </div>
+
+  <section class="features">
+    <div class="feature">⚡ QUICK<small>Simple process</small></div>
+    <div class="feature">📱 RESPONSIVE<small>Phone & PC</small></div>
+    <div class="feature">▣ FREE<small>No account needed</small></div>
+  </section>
+
+  <div class="social">
+    <a href="https://www.tiktok.com/@niazimd2" target="_blank" rel="noopener">♪ TikTok</a>
+    <a href="https://wa.me/923220225993" target="_blank" rel="noopener">☏ WhatsApp</a>
+  </div>
+</main>
+<footer>© 2026 MIAN X NIAZI · NIAZI-MD</footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  // Broken external banner ko hata kar built-in banner lagao
-  document.querySelectorAll("img").forEach(function (img) {
-    const text = (
-      (img.alt || "") + " " +
-      (img.src || "")
-    ).toLowerCase();
+const $ = id => document.getElementById(id);
+let mode = "tiktok";
 
-    if (text.includes("banner")) {
-      const banner = document.createElement("div");
-      banner.id = "niaziBanner";
-      banner.innerHTML = `
-        <div class="inner">
-          <div class="brand">MIAN X <span>NIAZI</span></div>
-          <div class="tag">FAST • SIMPLE • MOBILE FRIENDLY</div>
-        </div>`;
-      img.replaceWith(banner);
-    }
-  });
-
-  // Agar banner image maujood hi nahi, to khud add kar do
-  if (!document.getElementById("niaziBanner")) {
-    const banner = document.createElement("div");
-    banner.id = "niaziBanner";
-    banner.innerHTML = `
-      <div class="inner">
-        <div class="brand">MIAN X <span>NIAZI</span></div>
-        <div class="tag">FAST • SIMPLE • MOBILE FRIENDLY</div>
-      </div>`;
-
-    const container = document.querySelector(".container");
-    if (container) container.after(banner);
+const config = {
+  tiktok: {
+    eyebrow:"TIKTOK VIDEO DOWNLOADER",
+    heading:"TikTok Downloader",
+    desc:"Paste a public TikTok video link below.",
+    placeholder:"Paste TikTok link here...",
+    button:"GET TIKTOK VIDEO"
+  },
+  instagram: {
+    eyebrow:"INSTAGRAM VIDEO DOWNLOADER",
+    heading:"Instagram Downloader",
+    desc:"Paste a public Instagram post or Reel link.",
+    placeholder:"Paste Instagram link here...",
+    button:"GET INSTAGRAM VIDEO"
+  },
+  youtube: {
+    eyebrow:"YOUTUBE VIDEO DOWNLOADER",
+    heading:"YouTube Downloader",
+    desc:"Paste a YouTube video link below.",
+    placeholder:"Paste YouTube link here...",
+    button:"GET YOUTUBE VIDEO"
   }
+};
+
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    mode = btn.dataset.mode;
+    document.querySelectorAll(".tab").forEach(b =>
+      b.classList.toggle("active", b === btn)
+    );
+    const c = config[mode];
+    $("eyebrow").textContent = c.eyebrow;
+    $("heading").textContent = c.heading;
+    $("desc").textContent = c.desc;
+    $("videoUrl").placeholder = c.placeholder;
+    $("downloadBtn").textContent = c.button;
+    $("status").style.display = "none";
+  });
+});
+
+$("pasteBtn").addEventListener("click", async () => {
+  try {
+    $("videoUrl").value = await navigator.clipboard.readText();
+    showStatus("Link pasted. Ab Download button dabao.");
+  } catch {
+    showStatus("Clipboard access nahi mila. Link ko copy karke box mein paste karo.");
+  }
+});
+
+$("clearBtn").addEventListener("click", () => {
+  $("videoUrl").value = "";
+  $("status").style.display = "none";
+});
+
+function showStatus(message) {
+  $("status").style.display = "block";
+  $("status").textContent = message;
+}
+
+function findUrl(data, depth = 0) {
+  if (!data || depth > 7) return "";
+  if (typeof data === "string") {
+    if (/^https?:\/\//i.test(data) &&
+        !/youtube\.com\/watch|youtu\.be\//i.test(data)) return data;
+    return "";
+  }
+  if (Array.isArray(data)) {
+    for (const item of data) {
+      const found = findUrl(item, depth + 1);
+      if (found) return found;
+    }
+    return "";
+  }
+  if (typeof data === "object") {
+    const keys = [
+      "download_url","downloadUrl","video_url","videoUrl",
+      "play","play_url","playUrl","url","link","dl",
+      "download","fileUrl","directUrl","hdplay"
+    ];
+    for (const key of keys) {
+      if (typeof data[key] === "string" &&
+          /^https?:\/\//i.test(data[key])) return data[key];
+    }
+    for (const key of [
+      "data","result","results","video","videos","media",
+      "formats","links","download","music","nowm"
+    ]) {
+      if (data[key]) {
+        const found = findUrl(data[key], depth + 1);
+        if (found) return found;
+      }
+    }
+  }
+  return "";
+}
+
+async function fetchJson(url, timeout = 15000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeout);
+  try {
+    const response = await fetch(url, {signal:controller.signal});
+    if (!response.ok) throw new Error("Server response " + response.status);
+    return await response.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function downloadVideo() {
+  const url = $("videoUrl").value.trim();
+  if (!url) {
+    showStatus("Pehle video link paste karo.");
+    return;
+  }
+
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    showStatus("Sahi video URL paste karo.");
+    return;
+  }
+  if (!["http:","https:"].includes(parsed.protocol)) {
+    showStatus("Sahi video URL paste karo.");
+    return;
+  }
+
+  const btn = $("downloadBtn");
+  btn.disabled = true;
+  btn.textContent = "PLEASE WAIT...";
+  showStatus("Video link process ho raha hai...");
+
+  try {
+    let downloadUrl = "";
+
+    if (mode === "tiktok") {
+      const apiList = [
+        "https://www.tikwm.com/api/?url=" + encodeURIComponent(url),
+        "https://api.tiklydown.eu.org/api/download/v5?url=" + encodeURIComponent(url)
+      ];
+      let lastError;
+      for (const api of apiList) {
+        try {
+          const data = await fetchJson(api);
+          downloadUrl = findUrl(data);
+          if (downloadUrl) break;
+          lastError = new Error("Is API se direct video link nahi mila.");
+        } catch (e) { lastError = e; }
+      }
+      if (!downloadUrl) throw lastError || new Error("TikTok link nahi mila.");
+    }
+
+    if (mode === "instagram") {
+      const api = "https://my-insta-api-seven.vercel.app/api/instagram?url=" + encodeURIComponent(url);
+      const data = await fetchJson(api);
+      downloadUrl = findUrl(data);
+      if (!downloadUrl) throw new Error("Instagram download link nahi mila.");
+    }
+
+    if (mode === "youtube") {
+      const apiList = [
+        "https://youtube-downloader-api-mu.vercel.app/api/youtube?url=" + encodeURIComponent(url),
+        "https://apis.davidcyriltech.my.id/download/savetube?url=" + encodeURIComponent(url) + "&format=720"
+      ];
+      let lastError;
+      for (const api of apiList) {
+        try {
+          const data = await fetchJson(api, 20000);
+          downloadUrl = findUrl(data);
+          if (downloadUrl) break;
+          lastError = new Error("API ne direct download link nahi diya.");
+        } catch (e) { lastError = e; }
+      }
+      if (!downloadUrl) throw lastError || new Error("YouTube download link nahi mila.");
+    }
+
+    $("status").innerHTML =
+      "Download link mil gaya. <a href=\"" +
+      downloadUrl.replace(/&/g, "&amp;").replace(/"/g, "&quot;") +
+      "\" target=\"_blank\" rel=\"noopener\">OPEN / DOWNLOAD VIDEO</a>" +
+      "<br><small>Agar video nayi tab mein khule, menu se Download ya Save video select karo.</small>";
+    $("status").style.display = "block";
+  } catch (error) {
+    showStatus("Download nahi ho saka: " +
+      (error.name === "AbortError" ? "API timeout ho gayi." : error.message) +
+      " Agar API CORS ya server error de, us API ko backend ke zariye chalana hoga.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = config[mode].button;
+  }
+}
+
+$("downloadBtn").addEventListener("click", downloadVideo);
+$("videoUrl").addEventListener("keydown", e => {
+  if (e.key === "Enter") downloadVideo();
 });
 </script>
 </body>
