@@ -7,218 +7,359 @@
 <title>MIAN X NIAZI Downloader</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#050505;color:white;font-family:Arial,sans-serif}
-header{text-align:center;padding:22px 10px;font-size:23px;font-weight:bold;
-color:#00ff88;text-shadow:0 0 12px #00ff88;border-bottom:1px solid #00ff88}
-.rain{text-align:center;color:#00ff88;font-size:12px;letter-spacing:5px;padding:10px}
-.wrap{max-width:520px;margin:auto;padding:15px}
-.brand{text-align:center;border:1px solid #ff00cc;border-radius:16px;
-padding:18px;margin:10px 0 20px;box-shadow:0 0 15px #ff00cc44}
-.brand h2{color:#ff00cc;margin:0 0 8px}
-.brand p{color:#ccc;font-size:13px}
-.platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
-.platform{padding:14px 4px;border:1px solid #333;border-radius:12px;
-background:#111;color:white;font-weight:bold;font-size:14px;cursor:pointer}
-.platform.active{border-color:#00ff88;color:#00ff88;box-shadow:0 0 12px #00ff8844}
+body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;text-align:center;padding:17px;background:linear-gradient(90deg,#ff0050,#833ab4);font-weight:bold}
+.wrap{max-width:520px;margin:auto;padding:14px}
+.banner,.card{background:#191919;border:1px solid #333;border-radius:15px;padding:16px;margin:12px 0}
+.banner{text-align:center;border:2px solid #ff0050}
+.banner h2{color:#ff0050;margin:5px}
+.muted{color:#aaa;font-size:13px}
+.platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:15px 0}
+.platform{padding:12px 4px;border:1px solid #444;border-radius:12px;background:#191919;color:white;font-weight:bold}
+.platform.active{border-color:#ff0050;background:#ff0050}
 h3{text-align:center}
-input{width:100%;padding:15px;border-radius:10px;border:1px solid #00ff88;
-background:#111;color:white;font-size:14px;margin:10px 0}
-button.action{width:100%;padding:14px;border:0;border-radius:10px;
-background:linear-gradient(90deg,#00ff88,#00aaff);color:#000;font-size:16px;
-font-weight:bold;cursor:pointer;margin:7px 0}
-button.secondary{background:#181818;color:#00ff88;border:1px solid #00ff88}
-.note{background:#101010;border:1px solid #333;border-radius:10px;padding:12px;
-font-size:13px;line-height:1.6;color:#ccc;margin-top:15px}
-#status{white-space:pre-wrap;text-align:center;color:#00ff88;font-size:14px;margin:15px 0}
-#result{display:none;background:#111;padding:14px;border-radius:12px;margin-top:15px}
-video{width:100%;max-height:400px;margin-top:12px;border-radius:10px}
-footer{text-align:center;color:#888;font-size:12px;padding:25px}
-a{color:#00ff88}
+.inputrow{display:flex;gap:7px}
+input{min-width:0;flex:1;padding:14px;border:1px solid #555;border-radius:12px;background:#222;color:white}
+button{cursor:pointer}
+.paste{padding:10px;border:0;border-radius:10px;background:#ff0050;color:white}
+.mainbtn,.dlbtn{display:block;width:100%;padding:14px;margin-top:10px;border:0;border-radius:12px;background:#25d366;color:#07140b;font-size:16px;font-weight:bold}
+#status{white-space:pre-wrap;text-align:center;color:#00ff99;font-size:13px;margin:14px 0}
+#loading{display:none;text-align:center;padding:15px;color:#ff6b9d}
+#previewArea{display:none;margin-top:15px}
+video,iframe{width:100%;border:0;border-radius:12px;background:#000}
+video{max-height:480px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}
+.stat{background:#252525;border-radius:9px;padding:10px 4px;text-align:center}
+.stat strong{display:block;font-size:16px;overflow-wrap:anywhere}
+.stat small{font-size:10px;color:#aaa}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}
+.actions button{border:0;border-radius:10px;padding:12px 3px;color:white;font-weight:bold;background:#ff0050}
+.actions button:nth-child(2){background:#ff6b00}
+.actions button:nth-child(3){background:#168b55}
+#author{color:#ff6b9d}
+a{color:#00ff99}
+footer{text-align:center;color:#888;padding:25px;font-size:12px}
 </style>
 </head>
 <body>
-<header>🔥 MIAN X NIAZI 🔥</header>
-<div class="rain">0101 • NIAZI-MD • RGB • 0101</div>
-
-<main class="wrap">
-  <div class="brand">
-    <h2>ALL-IN-ONE DOWNLOADER</h2>
-    <p>YouTube • TikTok • Instagram</p>
-    <p>Made with ❤️ by NIAZI-MD</p>
+<header>🔥 MIAN X NIAZI DOWNLOADER</header>
+<div class="wrap">
+  <div class="banner">
+    <h2>MIAN X NIAZI</h2>
+    <p>Premium Video Downloading Tools</p>
+    <p class="muted">TikTok • Instagram • YouTube</p>
+    <b style="color:#00ff99">100% NIAZI-MD</b>
   </div>
 
   <div class="platforms">
-    <button class="platform active" data-platform="tiktok" onclick="choose('tiktok')">🎵 TikTok</button>
-    <button class="platform" data-platform="instagram" onclick="choose('instagram')">📸 Instagram</button>
-    <button class="platform" data-platform="youtube" onclick="choose('youtube')">▶ YouTube</button>
+    <button id="btn-tiktok" class="platform active" onclick="choose('tiktok')">🎵 TikTok</button>
+    <button id="btn-instagram" class="platform" onclick="choose('instagram')">📸 Instagram</button>
+    <button id="btn-youtube" class="platform" onclick="choose('youtube')">▶ YouTube</button>
   </div>
 
-  <h3 id="heading">TikTok Video Downloader</h3>
-  <input id="url" type="url" placeholder="Paste TikTok video link">
-  <button class="action secondary" onclick="pasteLink()">📋 Paste Link</button>
-  <button class="action" onclick="processLink()">⬇ Get Download Options</button>
+  <div class="card">
+    <h3 id="heading">TikTok Video Downloader</h3>
+    <div class="inputrow">
+      <input id="url" placeholder="Paste TikTok video link" oninput="resetPreview()">
+      <button class="paste" onclick="pasteLink()">Paste</button>
+    </div>
+    <button class="mainbtn" onclick="getVideo()">⬇ Get Video</button>
+    <div id="loading">⏳ Video load ho rahi hai...</div>
+    <div id="status"></div>
 
-  <div id="status"></div>
-  <div id="result">
-    <h3 id="resultTitle">Download Options</h3>
-    <div id="options"></div>
-    <video id="preview" controls style="display:none"></video>
+    <div id="previewArea">
+      <div id="author" style="margin:10px 0"></div>
+      <div class="stats">
+        <div class="stat"><strong id="likes">0</strong><small>❤️ LIKES</small></div>
+        <div class="stat"><strong id="shares">0</strong><small>📤 SHARES</small></div>
+        <div class="stat"><strong id="views">0</strong><small>👁 VIEWS</small></div>
+        <div class="stat"><strong id="followers">0</strong><small>👥 FOLLOWERS</small></div>
+        <div class="stat"><strong id="following">0</strong><small>➕ FOLLOWING</small></div>
+        <div class="stat"><strong id="sound">Audio</strong><small>🎵 SOUND</small></div>
+      </div>
+
+      <video id="video" controls playsinline></video>
+      <iframe id="frame" title="Video preview" allowfullscreen style="display:none;aspect-ratio:9/16"></iframe>
+
+      <div class="actions">
+        <button onclick="downloadVideo()">⬇ Video</button>
+        <button onclick="downloadHD()">🎬 HD</button>
+        <button onclick="downloadMP3()">🎵 MP3</button>
+      </div>
+    </div>
   </div>
 
-  <div class="note">
-    <b>Features</b><br>
-    ✅ TikTok video link support<br>
-    ✅ Instagram Reel/Post link support<br>
-    ✅ YouTube video link support<br>
-    ✅ Mobile-friendly RGB hacker design<br><br>
-    Note: Download availability depends on the working source/API.
-    Private, restricted, or unsupported videos may not work.
+  <div class="card">
+    <h3>✨ Features</h3>
+    <p>🎬 Video Preview & Download</p>
+    <p>🎵 Audio Download Option</p>
+    <p>❤️ TikTok Likes / Shares / Views</p>
+    <p>👥 TikTok Followers / Following (if API provides them)</p>
+    <p>📱 Mobile-Friendly Design</p>
   </div>
 
-  <div class="note">
-    Need help? <a href="https://wa.me/923220225993">Contact NIAZI-MD on WhatsApp</a>
+  <div class="card" style="text-align:center">
+    <a href="https://www.tiktok.com/@niazimd2" target="_blank" rel="noopener">🎵 Follow NIAZI-MD on TikTok</a>
+    <br><br>
+    <a href="https://wa.me/923220225993" target="_blank" rel="noopener">💬 Contact Owner</a>
   </div>
-</main>
-
-<footer>
-  MIAN X NIAZI • NIAZI-MD<br>
-  Use only for content you have permission to download.
-</footer>
+</div>
+<footer>© 2026 MIAN X NIAZI • MADE BY NIAZI-MD</footer>
 
 <script>
-let platform = "tiktok";
-let videoData = null;
+let platform = 'tiktok';
+let data = {};
 
-const config = {
-  tiktok: {
-    title: "TikTok Video Downloader",
-    placeholder: "https://www.tiktok.com/@user/video/...",
-    match: /tiktok\.com/i
-  },
-  instagram: {
-    title: "Instagram Video Downloader",
-    placeholder: "https://www.instagram.com/reel/...",
-    match: /instagram\.com/i
-  },
-  youtube: {
-    title: "YouTube Video Downloader",
-    placeholder: "https://www.youtube.com/watch?v=...",
-    match: /youtube\.com|youtu\.be/i
-  }
-};
+const $ = id => document.getElementById(id);
 
-function choose(name) {
-  platform = name;
-  videoData = null;
-  document.querySelectorAll(".platform").forEach(b =>
-    b.classList.toggle("active", b.dataset.platform === name)
-  );
-  document.getElementById("heading").textContent = config[name].title;
-  document.getElementById("url").placeholder = config[name].placeholder;
-  document.getElementById("url").value = "";
-  document.getElementById("status").textContent = "";
-  document.getElementById("result").style.display = "none";
-  document.getElementById("options").innerHTML = "";
-  document.getElementById("preview").style.display = "none";
+function choose(p){
+  platform=p;
+  ['tiktok','instagram','youtube'].forEach(x=>$('btn-'+x).classList.toggle('active',x===p));
+  $('heading').textContent={
+    tiktok:'TikTok Video Downloader',
+    instagram:'Instagram Reels Downloader',
+    youtube:'YouTube Video Downloader'
+  }[p];
+  $('url').placeholder={
+    tiktok:'https://www.tiktok.com/@user/video/...',
+    instagram:'https://www.instagram.com/reel/...',
+    youtube:'https://www.youtube.com/watch?v=...'
+  }[p];
+  resetPreview();
 }
 
-async function pasteLink() {
-  try {
-    document.getElementById("url").value = await navigator.clipboard.readText();
-    document.getElementById("status").textContent = "Link pasted. Ab download button dabao.";
-  } catch {
-    document.getElementById("status").textContent =
-      "Apna link input box mein paste karein.";
+function resetPreview(){
+  $('previewArea').style.display='none';
+  $('status').textContent='';
+  $('video').pause();
+  $('video').removeAttribute('src');
+  $('video').load();
+  $('video').style.display='block';
+  $('frame').style.display='none';
+  $('frame').src='about:blank';
+  data={};
+}
+
+async function pasteLink(){
+  try{
+    $('url').value=await navigator.clipboard.readText();
+    $('status').textContent='Link paste ho gaya. Get Video dabao.';
+  }catch(e){
+    $('status').textContent='Input box par long-press karo aur Paste select karo.';
   }
 }
 
-function addLink(label, url) {
-  if (!url || typeof url !== "string") return;
-  try {
-    const parsed = new URL(url);
-    if (!["https:", "http:"].includes(parsed.protocol)) return;
-    const a = document.createElement("a");
-    a.href = parsed.href;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.textContent = label + " ↗";
-    a.className = "action";
-    a.style.display = "block";
-    a.style.textAlign = "center";
-    a.style.textDecoration = "none";
-    document.getElementById("options").appendChild(a);
-  } catch {}
+function formatNum(n){
+  n=Number(n||0);
+  if(n>=1e9)return (n/1e9).toFixed(1)+'B';
+  if(n>=1e6)return (n/1e6).toFixed(1)+'M';
+  if(n>=1e3)return (n/1e3).toFixed(1)+'K';
+  return String(n);
 }
 
-async function processLink() {
-  const url = document.getElementById("url").value.trim();
-  const status = document.getElementById("status");
-  const options = document.getElementById("options");
-  const result = document.getElementById("result");
-  const preview = document.getElementById("preview");
+async function jsonFetch(url){
+  const r=await fetch(url);
+  if(!r.ok)throw Error('API response '+r.status);
+  return r.json();
+}
 
-  options.innerHTML = "";
-  result.style.display = "none";
-  preview.style.display = "none";
-  videoData = null;
-
-  if (!url || !/^https?:\/\//i.test(url)) {
-    status.textContent = "Pehle valid video link paste karo.";
-    return;
-  }
-  if (!config[platform].match.test(url)) {
-    status.textContent = "Yeh " + platform.toUpperCase() +
-      " ka link nahi lagta. Sahi platform select karo.";
+async function getVideo(){
+  const url=$('url').value.trim();
+  if(!/^https?:\/\//i.test(url)){
+    $('status').textContent='Pehle valid video link paste karo.';
     return;
   }
 
-  status.textContent = "Link check ho raha hai...";
-  result.style.display = "block";
+  let host='';
+  try{host=new URL(url).hostname.toLowerCase()}catch(e){}
 
-  if (platform === "tiktok") {
-    try {
-      const response = await fetch(
-        "https://www.tikwm.com/api/?url=" + encodeURIComponent(url)
-      );
-      if (!response.ok) throw new Error("API response " + response.status);
-      const json = await response.json();
-      if (json.code !== 0 || !json.data) throw new Error("Video data nahi mila.");
+  const valid={
+    tiktok:/tiktok\.com$/,
+    instagram:/instagram\.com$/,
+    youtube:/youtube\.com$|youtu\.be$/
+  }[platform];
 
-      videoData = json.data;
-      const videoUrl = json.data.play || json.data.wmplay;
-      if (videoUrl) {
-        preview.src = videoUrl;
-        preview.style.display = "block";
-        addLink("⬇ Download TikTok Video", videoUrl);
-      }
-      if (json.data.music) addLink("🎵 Open Audio", json.data.music);
-      status.textContent = videoUrl
-        ? "TikTok video mil gayi. Agar save na ho to download link ko browser mein kholo."
-        : "API ne video link nahi diya.";
-    } catch (e) {
-      status.textContent =
-        "TikTok service abhi kaam nahi kar rahi ya browser ne request block ki hai.\n" +
-        "Error: " + e.message;
-      addLink("TikTok link browser mein kholo", url);
-    }
+  if(!valid.test(host)){
+    $('status').textContent='Selected platform ka sahi link paste karo.';
+    return;
   }
 
-  if (platform === "instagram") {
-    status.textContent =
-      "Instagram link tayyar hai. Direct download ke liye working Instagram extraction API zaroori hai.";
-    addLink("Instagram post/reel kholo", url);
-    addLink("SaveIG website par try karo",
-      "https://saveig.app/");
-    addLink("FastDl website par try karo",
-      "https://fastdl.app/");
+  resetPreview();
+  $('loading').style.display='block';
+  $('status').textContent='Video load ho rahi hai...';
+
+  try{
+    if(platform==='tiktok')await loadTikTok(url);
+    if(platform==='instagram')await loadInstagram(url);
+    if(platform==='youtube')await loadYouTube(url);
+  }catch(e){
+    console.error(e);
+    $('status').textContent='Video load nahi hui: '+e.message+
+      '\nAgar API block ya unavailable ho to service ko fix karna hoga.';
+  }finally{
+    $('loading').style.display='none';
+  }
+}
+
+async function loadTikTok(url){
+  let d=null;
+  const apis=[
+    'https://www.tikwm.com/api/?url='+encodeURIComponent(url),
+    'https://api.tiklydown.eu.org/api/download/v5?url='+encodeURIComponent(url)
+  ];
+
+  for(const api of apis){
+    try{
+      const j=await jsonFetch(api);
+      d=j.data||j.result;
+      if(d)break;
+    }catch(e){console.warn('TikTok API failed',e)}
   }
 
-  if (platform === "youtube") {
-    status.textContent =
-      "YouTube link check ho gaya. Download ke liye working YouTube backend/API connect karna hoga.";
-    addLink("YouTube video kholo", url);
-    addLink("YouTube link copy/open options", 
-      "https://www.youtube.com/");
+  if(!d)throw Error('TikTok API ne video data nahi diya.');
+
+  const a=d.author||{};
+  data={
+    video:d.play||d.video1||d.video||d.wmplay||'',
+    hd:d.hdplay||d.video2||d.video_hd||d.play||d.video||'',
+    audio:d.music||d.audio||'',
+    author:a,
+    title:d.title||d.desc||'',
+    likes:d.like||d.likes||d.digg_count||0,
+    shares:d.share||d.shares||d.share_count||0,
+    views:d.play_count||d.views||d.view||0,
+    followers:a.follower_count||a.followers||a.followerCount||0,
+    following:a.following_count||a.following||a.followingCount||0,
+    sound:(d.music_info||{}).title||'Original Sound'
+  };
+
+  if(!data.video)throw Error('Video file link nahi mila.');
+
+  $('author').textContent='👤 @'+(a.unique_id||a.uniqueId||'TikTok User')+
+    ' — '+(a.nickname||'');
+  $('likes').textContent=formatNum(data.likes);
+  $('shares').textContent=formatNum(data.shares);
+  $('views').textContent=formatNum(data.views);
+  $('followers').textContent=formatNum(data.followers);
+  $('following').textContent=formatNum(data.following);
+  $('sound').textContent=data.sound;
+
+  $('video').src=data.video;
+  $('video').poster=d.cover||'';
+  $('previewArea').style.display='block';
+  $('status').textContent='TikTok preview ready. Neeche Video / HD / MP3 select karo.';
+}
+
+async function cobalt(url){
+  const r=await fetch('https://api.cobalt.tools/',{
+    method:'POST',
+    headers:{'Accept':'application/json','Content-Type':'application/json'},
+    body:JSON.stringify({url:url,downloadMode:'auto',filenameStyle:'pretty'})
+  });
+  if(!r.ok)throw Error('Downloader service response '+r.status);
+  const j=await r.json();
+  if(j.url)return j.url;
+  if(j.picker&&j.picker.length)return j.picker[0].url;
+  throw Error(j.text||j.error||'Direct video URL nahi mili.');
+}
+
+async function loadInstagram(url){
+  // Try a media resolver. Availability/CORS can vary by public service.
+  const direct=await cobalt(url);
+  data={video:direct,hd:direct,audio:''};
+  $('video').src=direct;
+  $('previewArea').style.display='block';
+  $('author').textContent='📸 Instagram video preview';
+  $('status').textContent='Instagram preview ready. Download ke liye Video dabao.';
+}
+
+function getYouTubeId(url){
+  const u=new URL(url);
+  if(u.hostname==='youtu.be')return u.pathname.slice(1).split('/')[0];
+  if(u.pathname.startsWith('/shorts/'))return u.pathname.split('/')[2];
+  return u.searchParams.get('v')||'';
+}
+
+function findUrl(obj,keys,depth=0){
+  if(!obj||typeof obj!=='object'||depth>7)return '';
+  for(const k of keys){
+    if(typeof obj[k]==='string'&&/^https?:\/\//i.test(obj[k]))return obj[k];
+  }
+  for(const v of Object.values(obj)){
+    const found=findUrl(v,keys,depth+1);
+    if(found)return found;
+  }
+  return '';
+}
+
+async function loadYouTube(url){
+  const id=getYouTubeId(url);
+  if(!id)throw Error('YouTube video ID nahi mili.');
+
+  $('video').style.display='none';
+  $('frame').src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id);
+  $('frame').style.display='block';
+  $('previewArea').style.display='block';
+  $('author').textContent='▶ YouTube video preview';
+
+  let j=null;
+  try{
+    j=await jsonFetch('https://youtube-downloader-api-mu.vercel.app/api/youtube?url='+encodeURIComponent(url));
+  }catch(e){console.warn('YouTube API failed',e)}
+
+  let mp4=j&&findUrl(j,['downloadUrl','download_url','videoUrl','video_url','mp4','video']);
+  let mp3=j&&findUrl(j,['audioUrl','audio_url','mp3Url','mp3_url','audio','mp3']);
+
+  // Fallback resolver, if it accepts the URL and browser allows the request.
+  if(!mp4){
+    try{mp4=await cobalt(url)}catch(e){console.warn('Fallback resolver failed',e)}
+  }
+
+  data={video:mp4||'',hd:mp4||'',audio:mp3||''};
+  $('status').textContent=mp4?
+    'YouTube preview ready. Download options available.':
+    'YouTube preview ready, lekin API ne direct download link nahi diya.';
+}
+
+function downloadVideo(){
+  if(!data.video){
+    $('status').textContent='Direct video download link nahi mila. Preview aur download API alag cheezen hain.';
+    return;
+  }
+  openDownload(data.video,platform+'-video.mp4');
+}
+
+function downloadHD(){
+  if(!data.hd){
+    $('status').textContent='HD download link API se nahi mili.';
+    return;
+  }
+  openDownload(data.hd,platform+'-HD.mp4');
+}
+
+function downloadMP3(){
+  if(!data.audio){
+    $('status').textContent='MP3/audio link API ne nahi diya.';
+    return;
+  }
+  openDownload(data.audio,platform+'-audio.mp3');
+}
+
+async function openDownload(url,name){
+  $('status').textContent='Download start ho rahi hai...';
+  try{
+    const r=await fetch(url);
+    if(!r.ok)throw Error('Direct fetch blocked');
+    const blob=await r.blob();
+    const temp=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=temp;a.download=name;
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(temp),2000);
+    $('status').textContent='Download request bhej di gayi.';
+  }catch(e){
+    window.open(url,'_blank','noopener');
+    $('status').textContent='Browser ne direct save block kiya. Media new tab mein khul sakti hai.';
   }
 }
 </script>
